@@ -1,0 +1,57 @@
+package lab.space.vilki_palki_rest.controller;
+
+import jakarta.validation.Valid;
+import lab.space.vilki_palki_rest.model.address.AddressResponse;
+import lab.space.vilki_palki_rest.model.address.AddressSaveRequest;
+import lab.space.vilki_palki_rest.model.address.AddressUpdateRequest;
+import lab.space.vilki_palki_rest.service.AddressService;
+import lab.space.vilki_palki_rest.util.ErrorMapper;
+import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("addresses")
+@AllArgsConstructor
+public class AddressController {
+    private final AddressService addressService;
+
+    @GetMapping("get-address/{id}")
+    public ResponseEntity<AddressResponse> getAddress(@PathVariable Long id){
+        return ResponseEntity.ok(addressService.getAddressDto(id));
+    }
+
+    @GetMapping("get-all-addresses-by-user-id/{id}")
+    public ResponseEntity<List<AddressResponse>> getAllAddresses(@PathVariable Long id){
+        return ResponseEntity.ok(addressService.getAllAddressByUserId(id));
+    }
+
+    @PostMapping("save-address")
+    public ResponseEntity<?> saveAddress(@Valid @RequestBody AddressSaveRequest request,
+                                         BindingResult bindingResult){
+        if (bindingResult.hasErrors()){
+            return ResponseEntity.badRequest().body(ErrorMapper.mapErrors(bindingResult));
+        }
+        addressService.saveAddress(request);
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("update-address")
+    public ResponseEntity<?> updateAddress(@Valid @RequestBody AddressUpdateRequest request,
+                                           BindingResult bindingResult){
+        if (bindingResult.hasErrors()){
+            return ResponseEntity.badRequest().body(ErrorMapper.mapErrors(bindingResult));
+        }
+        addressService.updateAddress(request);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("delete-address/{id}")
+    public ResponseEntity<?> updateAddress(@PathVariable Long id){
+        addressService.deleteAddress(id);
+        return ResponseEntity.ok().build();
+    }
+}
