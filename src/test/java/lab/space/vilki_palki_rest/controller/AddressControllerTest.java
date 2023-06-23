@@ -21,25 +21,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 //@Import(SecurityConfig.class)
 //@WebMvcTest(AddressController.class)
 //@WithMockUser
-@SpringBootTest
-@AutoConfigureMockMvc
+
 class AddressControllerTest {
-    @Autowired
-    private MockMvc mockMvc;
 
-    @MockBean
-    private AddressService addressService;
-    @MockBean
-    private JwtService jwtService;
-    @MockBean
-    private JwtAuthenticationFilter jwtAuthenticationFilter;
-    @MockBean
-    private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
-    @MockBean
-    private UserService userService;
-
-    @MockBean
-    private AddressRepository addressRepository;
     private final String DEFAULT_PATH = "/addresses";
 
     @Test
