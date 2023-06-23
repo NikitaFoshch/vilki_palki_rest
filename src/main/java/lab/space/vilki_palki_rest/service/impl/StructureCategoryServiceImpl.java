@@ -1,6 +1,6 @@
 package lab.space.vilki_palki_rest.service.impl;
 
-import jakarta.persistence.EntityNotFoundException;
+import javax.persistence.EntityNotFoundException;
 import lab.space.vilki_palki_rest.entity.StructureCategory;
 import lab.space.vilki_palki_rest.mapper.StructureCategoryMapper;
 import lab.space.vilki_palki_rest.model.structure_category.StructureCategoryResponse;
@@ -12,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -33,6 +34,6 @@ public class StructureCategoryServiceImpl implements StructureCategoryService {
     @Override
     public List<StructureCategoryResponse> getAllStructureCategories() {
         return structureCategoryRepository.findAll(Sort.by(Sort.Direction.ASC, "name"))
-                .stream().map(StructureCategoryMapper::toDto).toList();
+                .stream().map(StructureCategoryMapper::toDto).collect(Collectors.toList());
     }
 }

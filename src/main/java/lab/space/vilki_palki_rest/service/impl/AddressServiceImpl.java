@@ -1,6 +1,6 @@
 package lab.space.vilki_palki_rest.service.impl;
 
-import jakarta.persistence.EntityNotFoundException;
+import javax.persistence.EntityNotFoundException;
 import lab.space.vilki_palki_rest.entity.Address;
 import lab.space.vilki_palki_rest.mapper.AddressMapper;
 import lab.space.vilki_palki_rest.model.address.AddressResponse;
@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -36,36 +37,36 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public List<AddressResponse> getAllAddressByUserId(Long id) {
         return addressRepository.findAllByUserIdOrderByCreateAt(id)
-                .stream().map(AddressMapper::toSimplifiedDto).toList();
+                .stream().map(AddressMapper::toSimplifiedDto).collect(Collectors.toList());
     }
 
     @Override
     public void saveAddress(AddressSaveRequest request) {
         addressRepository.save(
                 new Address()
-                        .setApartment(request.apartment())
-                        .setDoorCode(request.doorCode())
-                        .setNotes(request.notes())
-                        .setUser(userService.getUserById(request.userId()))
-                        .setFrontDoor(request.frontDoor())
-                        .setNumberHouse(request.numberHouse())
-                        .setStreet(request.street())
-                        .setFloor(request.floor())
+                        .setApartment(request.getApartment())
+                        .setDoorCode(request.getDoorCode())
+                        .setNotes(request.getNotes())
+                        .setUser(userService.getUserById(request.getUserId()))
+                        .setFrontDoor(request.getFrontDoor())
+                        .setNumberHouse(request.getNumberHouse())
+                        .setStreet(request.getStreet())
+                        .setFloor(request.getFloor())
         );
     }
 
     @Override
     public void updateAddress(AddressUpdateRequest request) {
         addressRepository.save(
-                getAddress(request.id())
-                        .setApartment(request.apartment())
-                        .setDoorCode(request.doorCode())
-                        .setNotes(request.notes())
-                        .setUser(userService.getUserById(request.userId()))
-                        .setFrontDoor(request.frontDoor())
-                        .setNumberHouse(request.numberHouse())
-                        .setStreet(request.street())
-                        .setFloor(request.floor())
+                getAddress(request.getId())
+                        .setApartment(request.getApartment())
+                        .setDoorCode(request.getDoorCode())
+                        .setNotes(request.getNotes())
+                        .setUser(userService.getUserById(request.getUserId()))
+                        .setFrontDoor(request.getFrontDoor())
+                        .setNumberHouse(request.getNumberHouse())
+                        .setStreet(request.getStreet())
+                        .setFloor(request.getFloor())
         );
 
     }

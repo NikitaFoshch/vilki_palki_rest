@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-@Hidden
 @Repository
 public interface AdminRepository extends JpaRepository<Admin, Long>, JpaSpecificationExecutor<Admin> {
     Optional<Admin> findByEmail(String email);

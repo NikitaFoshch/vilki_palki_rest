@@ -11,6 +11,8 @@ import lab.space.vilki_palki_rest.model.product.ProductResponse;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.stream.Collectors;
+
 @Component
 @AllArgsConstructor
 public class ProductMapper {
@@ -48,7 +50,7 @@ public class ProductMapper {
                 .structures(
                         product.getStructures()
                                 .stream()
-                                .map(structure -> structureService.getStructureDto(structure.getId())).toList()
+                                .map(structure -> structureService.getStructureDto(structure.getId())).collect(Collectors.toList())
                 )
                 .build();
     }

@@ -1,6 +1,8 @@
 package lab.space.vilki_palki_rest.controller;
 
-import jakarta.validation.Valid;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import javax.validation.Valid;
 import lab.space.vilki_palki_rest.model.address.AddressResponse;
 import lab.space.vilki_palki_rest.model.address.AddressSaveRequest;
 import lab.space.vilki_palki_rest.model.address.AddressUpdateRequest;
@@ -16,19 +18,22 @@ import java.util.List;
 @RestController
 @RequestMapping("addresses")
 @AllArgsConstructor
+@Tag(name = "Addresses", description = "Operations related to Addresses")
 public class AddressController {
     private final AddressService addressService;
 
+    @Operation(summary = "Get address by id" , description = "Enter your value")
     @GetMapping("get-address/{id}")
     public ResponseEntity<AddressResponse> getAddress(@PathVariable Long id){
         return ResponseEntity.ok(addressService.getAddressDto(id));
     }
-
+    @Operation(summary = "Get all addresses by user id", description = "Enter your value")
     @GetMapping("get-all-addresses-by-user-id/{id}")
     public ResponseEntity<List<AddressResponse>> getAllAddresses(@PathVariable Long id){
         return ResponseEntity.ok(addressService.getAllAddressByUserId(id));
     }
 
+    @Operation(summary = "Save address")
     @PostMapping("save-address")
     public ResponseEntity<?> saveAddress(@Valid @RequestBody AddressSaveRequest request,
                                          BindingResult bindingResult){
@@ -39,6 +44,7 @@ public class AddressController {
         return ResponseEntity.ok().build();
     }
 
+    @Operation(summary = "Update address", description = "Enter your value")
     @PutMapping("update-address")
     public ResponseEntity<?> updateAddress(@Valid @RequestBody AddressUpdateRequest request,
                                            BindingResult bindingResult){
@@ -49,6 +55,7 @@ public class AddressController {
         return ResponseEntity.ok().build();
     }
 
+    @Operation(summary = "Delete address by id")
     @DeleteMapping("delete-address/{id}")
     public ResponseEntity<?> updateAddress(@PathVariable Long id){
         addressService.deleteAddress(id);

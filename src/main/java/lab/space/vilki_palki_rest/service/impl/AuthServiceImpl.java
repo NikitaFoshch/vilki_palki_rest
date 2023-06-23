@@ -25,16 +25,14 @@ public class AuthServiceImpl implements AuthService {
     public void sendCodeByUserByEmail(UserRequest request) {
         checkEmail(request);
 
-        String verificationCode = generateVerificationCode();
+        String verificationCode = userService.addUserPass(request.getEmail());
 
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(request.email());
+        message.setTo(request.getEmail());
         message.setSubject("Подтверждение входа");
         message.setText("Код подтверждения: " + verificationCode);
 
-        userService.addUserPass(request.email(), verificationCode);
         mailSender.send(message);
-
     }
 
     @Override
@@ -43,14 +41,9 @@ public class AuthServiceImpl implements AuthService {
     }
 
     private void checkEmail(UserRequest request) {
-        if (userService.getUserByEmail(request.email()) == null) {
-            userService.saveUser(request.email());
+        if (userService.getUserByEmail(request.getEmail()) == null) {
+            userService.saveUser(request.getEmail());
         }
     }
 
-    private String generateVerificationCode() {
-        Random random = new Random();
-        int code = random.nextInt(9000) + 1000;
-        return String.valueOf(code);
-    }
 }

@@ -1,6 +1,6 @@
 package lab.space.vilki_palki_rest.service.impl;
 
-import jakarta.persistence.EntityNotFoundException;
+import javax.persistence.EntityNotFoundException;
 import lab.space.vilki_palki_rest.entity.Structure;
 import lab.space.vilki_palki_rest.mapper.StructureMapper;
 import lab.space.vilki_palki_rest.model.structure.StructureResponse;
@@ -12,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -34,6 +35,6 @@ public class StructureServiceImpl implements StructureService {
     @Override
     public List<StructureResponse> getAllStructuresDto() {
         return structureRepository.findAll(Sort.by(Sort.Direction.ASC,"name"))
-                .stream().map(structureMapper::toDto).toList();
+                .stream().map(structureMapper::toDto).collect(Collectors.toList());
     }
 }

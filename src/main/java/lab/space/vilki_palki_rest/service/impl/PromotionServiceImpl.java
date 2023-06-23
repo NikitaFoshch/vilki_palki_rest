@@ -1,6 +1,6 @@
 package lab.space.vilki_palki_rest.service.impl;
 
-import jakarta.persistence.EntityNotFoundException;
+import javax.persistence.EntityNotFoundException;
 import lab.space.vilki_palki_rest.entity.Promotion;
 import lab.space.vilki_palki_rest.mapper.PromotionMapper;
 import lombok.AllArgsConstructor;
@@ -12,6 +12,7 @@ import lab.space.vilki_palki_rest.model.promotion.PromotionResponse;
 import lab.space.vilki_palki_rest.repository.PromotionRepository;
 import lab.space.vilki_palki_rest.service.PromotionService;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -33,6 +34,6 @@ public class PromotionServiceImpl implements PromotionService {
     @Override
     public List<PromotionResponse> getAllPromotions() {
         return promotionRepository.findAll(Sort.by(Sort.Direction.ASC,"name"))
-                .stream().map(promotionMapper::toDto).toList();
+                .stream().map(promotionMapper::toDto).collect(Collectors.toList());
     }
 }

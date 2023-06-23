@@ -1,6 +1,6 @@
 package lab.space.vilki_palki_rest.service.impl;
 
-import jakarta.persistence.EntityNotFoundException;
+import javax.persistence.EntityNotFoundException;
 import lab.space.vilki_palki_rest.entity.ProductCategory;
 import lab.space.vilki_palki_rest.mapper.ProductCategoryMapper;
 import lab.space.vilki_palki_rest.model.product_category.ProductCategoryResponse;
@@ -12,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -33,6 +34,6 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     @Override
     public List<ProductCategoryResponse> getAllProductCategoryOrderByCreateAt() {
         return productCategoryRepository.findAll(Sort.by(Sort.Direction.ASC,"createAt"))
-                .stream().map(ProductCategoryMapper::toDto).toList();
+                .stream().map(ProductCategoryMapper::toDto).collect(Collectors.toList());
     }
 }

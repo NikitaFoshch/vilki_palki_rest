@@ -1,4 +1,4 @@
-package lab.space.vilki_palki_rest.util.jwt;
+package lab.space.vilki_palki_rest.service;
 
 import org.springframework.security.core.userdetails.UserDetails;
 

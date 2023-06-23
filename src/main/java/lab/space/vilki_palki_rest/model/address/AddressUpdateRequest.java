@@ -1,27 +1,38 @@
 package lab.space.vilki_palki_rest.model.address;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
 
-public record AddressUpdateRequest(
-        Long id,
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+@Data
+public class AddressUpdateRequest{
+        private Long id;
         @NotBlank(message = "Must be specified")
         @Size(max = 100, message = "Must be no more than {max} symbols")
-        String street,
+        @Schema(name = "street", example = "Bobra-Velikogo")
+        private String street;
         @NotBlank(message = "Must be specified")
         @Size(max = 10, message = "Must be no more than {max} symbols")
-        String numberHouse,
+        @Schema(name = "numberHouse", example = "97")
+        private String numberHouse;
         @Size(max = 10, message = "Must be no more than {max} symbols")
-        String apartment,
+        @Schema(name = "apartment", example = "77")
+        private String apartment;
         @Size(max = 20, message = "Must be no more than {max} symbols")
-        String frontDoor,
+        @Schema(name = "frontDoor", example = "6")
+        private String frontDoor;
         @Size(max = 20, message = "Must be no more than {max} symbols")
-        String doorCode,
-        Integer floor,
+        @Schema(name = "doorCode", example = "1197")
+        private String doorCode;
+        @Schema(name = "floor", example = "17")
+        private Integer floor;
         @Size(max = 500, message = "Must be no more than {max} symbols")
-        String notes,
+        @Schema(name = "notes", example = "Bober zaberet")
+        private String notes;
         @NotNull(message = "Must be specified")
-        Long userId
-) {
+        @Schema(name = "userId", example = "1")
+        private Long userId;
 }

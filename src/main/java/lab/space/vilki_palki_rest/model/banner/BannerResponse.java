@@ -2,12 +2,13 @@ package lab.space.vilki_palki_rest.model.banner;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
+import lombok.Data;
 
+@Data
 @Builder
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-public record BannerResponse(
-        Long id,
-        String name,
-        String image
-) {
+public class BannerResponse{
+       private Long id;
+       private String name;
+       private String image;
 }

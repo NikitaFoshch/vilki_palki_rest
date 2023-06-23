@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
-@Hidden
+
 @Repository
 public interface StructureCategoryRepository extends JpaRepository<StructureCategory, Long>, JpaSpecificationExecutor<StructureCategory> {
     boolean existsByName(String name);

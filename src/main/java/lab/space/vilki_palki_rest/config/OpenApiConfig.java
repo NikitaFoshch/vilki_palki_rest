@@ -1,9 +1,12 @@
 package lab.space.vilki_palki_rest.config;
 
+import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.servers.Server;
-import org.springdoc.core.models.GroupedOpenApi;
+import org.springdoc.core.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -20,6 +23,15 @@ public class OpenApiConfig {
                                 .description("This is a vilki-palki-rest server.")
                                 .termsOfService("https://swagger.io/terms/")
                 )
+                .components(
+                        new Components()
+                                .addSecuritySchemes("bearer-jwt", new SecurityScheme()
+                                        .type(SecurityScheme.Type.HTTP)
+                                        .scheme("bearer")
+                                        .bearerFormat("JWT")
+                                )
+                )
+                .addSecurityItem(new SecurityRequirement().addList("bearer-jwt"))
                 .addServersItem(new Server().url("http://localhost:8081"));
     }
 

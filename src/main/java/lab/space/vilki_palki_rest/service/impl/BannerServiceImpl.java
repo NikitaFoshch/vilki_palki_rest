@@ -1,6 +1,6 @@
 package lab.space.vilki_palki_rest.service.impl;
 
-import jakarta.persistence.EntityNotFoundException;
+import javax.persistence.EntityNotFoundException;
 import lab.space.vilki_palki_rest.entity.Banner;
 import lab.space.vilki_palki_rest.mapper.BannerMapper;
 import lab.space.vilki_palki_rest.model.banner.BannerResponse;
@@ -12,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -33,6 +34,6 @@ public class BannerServiceImpl implements BannerService {
     @Override
     public List<BannerResponse> getAllBanners() {
         return bannerRepository.findAll(Sort.by(Sort.Direction.DESC,"createAt"))
-                .stream().map(BannerMapper::toDto).toList();
+                .stream().map(BannerMapper::toDto).collect(Collectors.toList());
     }
 }

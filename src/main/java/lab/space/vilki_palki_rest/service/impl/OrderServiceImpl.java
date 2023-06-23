@@ -1,6 +1,6 @@
 package lab.space.vilki_palki_rest.service.impl;
 
-import jakarta.persistence.EntityNotFoundException;
+import javax.persistence.EntityNotFoundException;
 import lab.space.vilki_palki_rest.entity.Order;
 import lab.space.vilki_palki_rest.mapper.OrderMapper;
 import lab.space.vilki_palki_rest.model.order.OrderResponse;
@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -36,21 +37,21 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<OrderResponse> getAllOrdersByUserId(Long id) {
         return orderRepository.findAllByUserIdOrderByCreateAt(id)
-                .stream().map(OrderMapper::toSimplifiedDto).toList();
+                .stream().map(OrderMapper::toSimplifiedDto).collect(Collectors.toList());
     }
 
     @Override
     public void saveOrder(OrderSaveRequest request) {
         orderRepository.save(
                 new Order()
-                        .setOrderCode(request.orderCode())
-                        .setBirthday(request.date())
-                        .setProducts(request.productsList())
+                        .setOrderCode(request.getOrderCode())
+                        .setBirthday(request.getDate())
+                        .setProducts(request.getProductsList())
                         .setDeliveryTime(Instant.now())
                         .setDeliveryStatus(Order.DeliveryStatus.ACCEPT)
-                        .setAddress(request.address())
-                        .setPrice(request.price())
-                        .setUser(userService.getUserById(request.userId()))
+                        .setAddress(request.getAddress())
+                        .setPrice(request.getPrice())
+                        .setUser(userService.getUserById(request.getUserId()))
         );
     }
 }

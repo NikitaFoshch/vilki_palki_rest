@@ -1,10 +1,11 @@
 package lab.space.vilki_palki_rest.config;
 
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import lab.space.vilki_palki_rest.util.jwt.JwtService;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import lab.space.vilki_palki_rest.service.JwtService;
+import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,7 +19,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 @Component
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
@@ -28,8 +29,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(@NonNull HttpServletRequest request,
                                     @NonNull HttpServletResponse response,
                                     @NonNull FilterChain filterChain) throws ServletException, IOException {
-        System.out.println(request.getServletPath());
-        if (request.getServletPath().startsWith("/api/v1/auth/")
+        if (request.getServletPath().startsWith("/auth/login")
                 || request.getServletPath().startsWith("/swagger-ui/")
                 || request.getServletPath().startsWith("/v3/api-docs/")) {
             filterChain.doFilter(request, response);

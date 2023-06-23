@@ -1,5 +1,7 @@
 package lab.space.vilki_palki_rest.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lab.space.vilki_palki_rest.model.product_category.ProductCategoryResponse;
 import lab.space.vilki_palki_rest.service.ProductCategoryService;
 import lombok.AllArgsConstructor;
@@ -14,14 +16,17 @@ import java.util.List;
 @RestController
 @RequestMapping("product-categories")
 @AllArgsConstructor
+@Tag(name = "Product Categories", description = "Operations related to Product Categories")
 public class ProductCategoryController {
     private final ProductCategoryService productCategoryService;
 
+    @Operation(summary = "Get product category by id" , description = "Enter your value")
     @GetMapping("get-product-category/{id}")
     public ResponseEntity<ProductCategoryResponse> getProductCategory(@PathVariable Long id) {
         return ResponseEntity.ok(productCategoryService.getProductCategoryDTO(id));
     }
 
+    @Operation(summary = "Get all product categories")
     @GetMapping("get-all-product-categories")
     public ResponseEntity<List<ProductCategoryResponse>> getAllProductCategories() {
         return ResponseEntity.ok(productCategoryService.getAllProductCategoryOrderByCreateAt());

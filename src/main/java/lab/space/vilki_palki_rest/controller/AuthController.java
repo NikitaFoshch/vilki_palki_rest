@@ -1,6 +1,7 @@
 package lab.space.vilki_palki_rest.controller;
 
-import jakarta.validation.Valid;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import javax.validation.Valid;
 import lab.space.vilki_palki_rest.model.user.UserRequest;
 import lab.space.vilki_palki_rest.service.AuthService;
 import lab.space.vilki_palki_rest.util.ErrorMapper;
@@ -13,9 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("login")
+@RequestMapping("auth")
 @AllArgsConstructor
-public class LoginController {
+@Tag(name = "Login", description = "Operations related to Auth and Login")
+public class AuthController {
     private final AuthService authService;
 
     @PostMapping("enter-email")

@@ -1,6 +1,6 @@
 package lab.space.vilki_palki_rest.service.impl;
 
-import jakarta.persistence.EntityNotFoundException;
+import javax.persistence.EntityNotFoundException;
 import lab.space.vilki_palki_rest.entity.Product;
 import lab.space.vilki_palki_rest.mapper.ProductMapper;
 import lab.space.vilki_palki_rest.model.product.ProductRequest;
@@ -15,6 +15,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -41,7 +42,7 @@ public class ProductServiceImpl implements ProductService {
                         )
                 )
                 .map(productMapper::toSimpleDto)
-                .toList();
+                .collect(Collectors.toList());
     }
 
     @Override

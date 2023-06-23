@@ -1,9 +1,9 @@
-package lab.space.vilki_palki_rest.util.jwt.Impl;
+package lab.space.vilki_palki_rest.service.impl;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import lab.space.vilki_palki_rest.util.jwt.JwtService;
+import lab.space.vilki_palki_rest.service.JwtService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,11 +22,11 @@ import java.util.stream.Collectors;
 @Slf4j
 public class JwtServiceImpl implements JwtService {
 
-    @Value("SV9ET04nVF9LTk9XX1RIRV9TRUNSRVRfVE9LRU4=")
+    @Value("${app.jwt.secret}")
     private String JWT_SECRET;
-    private int ACCESS_JWT_EXPIRED_TIME = 6;
+    private final int ACCESS_JWT_EXPIRED_TIME = 6;
 
-    private int REFRESH_JWT_EXPIRED_TIME = 6;
+    private final int REFRESH_JWT_EXPIRED_TIME = 6;
 
     @Override
     public String extractUsername(String token) {
@@ -39,13 +39,11 @@ public class JwtServiceImpl implements JwtService {
                 .withSubject(userDetails.getUsername())
                 .withIssuedAt(new Date())
                 .withExpiresAt(new Date(System.currentTimeMillis() + 60000L * ACCESS_JWT_EXPIRED_TIME))
-                .withClaim("role", userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
                 .sign(getSignInAlgorithm());
         String refreshToken = JWT.create()
                 .withSubject(userDetails.getUsername())
                 .withIssuedAt(new Date())
                 .withExpiresAt(new Date(System.currentTimeMillis() + 60000L * REFRESH_JWT_EXPIRED_TIME))
-                .withClaim("role", userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
                 .sign(getSignInAlgorithm());
         Map<String, String> tokens = new HashMap<>();
         tokens.put("access_token", accessToken);

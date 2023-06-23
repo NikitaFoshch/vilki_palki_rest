@@ -9,15 +9,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-@Hidden
+
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificationExecutor<User> {
     User findUserByEmail(String email);
-
-    @Modifying
-    @Transactional
-    @Query("update User u set u.password = null where u.email like :email")
-    void removePasswordByUserEmail(String email);
 
     @Modifying
     @Transactional

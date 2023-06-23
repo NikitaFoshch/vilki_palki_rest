@@ -15,7 +15,6 @@ public interface UserService {
 
     void updateUser(UserUpdateRequest user);
 
-    void  addUserPass(String email, String pass);
-    void  removeUserPass(String email);
+    String  addUserPass(String email);
 
 }

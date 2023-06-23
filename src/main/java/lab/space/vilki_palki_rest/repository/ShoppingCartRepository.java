@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Hidden
+
 @Repository
 public interface ShoppingCartRepository extends JpaRepository<ShoppingCart, Long> {
     List<ShoppingCart> findAllByUserId(Long id);
