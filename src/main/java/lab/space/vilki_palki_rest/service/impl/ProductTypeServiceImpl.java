@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 public class ProductTypeServiceImpl implements ProductTypeService {
     private final ProductTypeRepository productTypeRepository;
 
+
     @Override
     public ProductType getProductType(Long id) {
         return productTypeRepository.findById(id)
