@@ -32,7 +32,7 @@ public class OpenApiConfig {
                                 )
                 )
                 .addSecurityItem(new SecurityRequirement().addList("bearer-jwt"))
-                .addServersItem(new Server().url("http://localhost:8081"));
+                .addServersItem(new Server().url("https://slj.avada-media-dev1.od.ua/Vilki_Palki_Api"));
     }
 
     @Bean
