@@ -31,4 +31,4 @@ jobs:
           PASSWORD: ${{ secrets.TOMCAT_PASSWORD }}
         run: |
           cd target
-          curl -T Vilki_Palki_Api.war "http://$LOGIN:$PASSWORD@slj.avada-media-dev1.od.ua/manager/text/deploy?&path=/opt/tomcat/webapps/&update=true"
+          curl -T Vilki_Palki_Api.war "http://$LOGIN:$PASSWORD@slj.avada-media-dev1.od.ua/manager/text/deploy?&path=/Vilki_Palki_Api&update=true"
