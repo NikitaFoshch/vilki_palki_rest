@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class IndexController {
     @GetMapping({"/", ""})
     public String redirectAdmin() {
-        return "redirect:/Vilki_Palki_Api/swagger-ui/index.html#/";
+        return "redirect:/swagger-ui/index.html#/";
     }
 }
