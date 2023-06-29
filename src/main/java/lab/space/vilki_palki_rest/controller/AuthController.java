@@ -2,6 +2,8 @@ package lab.space.vilki_palki_rest.controller;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import javax.validation.Valid;
+
+import lab.space.vilki_palki_rest.model.user.UserAuthRequest;
 import lab.space.vilki_palki_rest.model.user.UserRequest;
 import lab.space.vilki_palki_rest.service.AuthService;
 import lab.space.vilki_palki_rest.util.ErrorMapper;
@@ -27,6 +29,16 @@ public class AuthController {
             return ResponseEntity.badRequest().body(ErrorMapper.mapErrors(bindingResult));
         }
         authService.sendCodeByUserByEmail(request);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("login")
+    public ResponseEntity<?> login(@Valid @RequestBody UserAuthRequest request,
+                                   BindingResult bindingResult){
+        if (bindingResult.hasErrors()){
+            return ResponseEntity.badRequest().body(ErrorMapper.mapErrors(bindingResult));
+        }
+        authService.authentication(request);
         return ResponseEntity.ok().build();
     }
 }
