@@ -7,6 +7,6 @@ import lombok.Data;
 public class ProductRequest {
     @Schema(name = "productTypeId", example = "1")
     private Long productTypeId;
-    @Schema(name = "productCategoryId", example = "2")
+    @Schema(name = "productCategoryId", example = "1")
     private Long productCategoryId;
 }
