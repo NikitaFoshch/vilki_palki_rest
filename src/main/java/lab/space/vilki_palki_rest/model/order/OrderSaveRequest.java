@@ -19,7 +19,7 @@ public class OrderSaveRequest {
     @Schema(name = "productsList", example = "Xleb, Pomidor, Banana")
     private String productsList;
     @JsonFormat(pattern = "hh:mm dd.MM.yyyy", timezone = "UTC")
-    @Schema(name = "date", example = "12.12.2023")
+    @Schema(name = "date", example = "null")
     private Instant date;
     @NotBlank(message = "Must be specified")
     @Size(max = 1000, message = "Must be no more than {max} symbols")
