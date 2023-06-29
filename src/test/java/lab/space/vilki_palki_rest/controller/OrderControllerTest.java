@@ -18,8 +18,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@Import(SecurityConfig.class)
-@WebMvcTest(OrderController.class)
+//@Import(SecurityConfig.class)
+//@WebMvcTest(OrderController.class)
 
 class OrderControllerTest {
     @Test
