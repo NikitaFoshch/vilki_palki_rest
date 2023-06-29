@@ -53,6 +53,7 @@ public class AuthServiceImpl implements AuthService {
                     new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
             SecurityContextHolder.getContext().setAuthentication(authentication);
             User user = userService.getUserByEmail(request.getEmail());
+            log.info("Try to generate token");
             return ResponseEntity.ok(jwtService.generateTokens(user));
         } catch (BadCredentialsException e) {
             log.warn("Bad try of authentication with " + request);
