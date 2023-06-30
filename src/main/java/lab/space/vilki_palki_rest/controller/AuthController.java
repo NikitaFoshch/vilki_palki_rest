@@ -38,6 +38,6 @@ public class AuthController {
         if (bindingResult.hasErrors()){
             return ResponseEntity.badRequest().body(ErrorMapper.mapErrors(bindingResult));
         }
-        return ResponseEntity.ok(authService.authentication(request));
+        return authService.authentication(request);
     }
 }
