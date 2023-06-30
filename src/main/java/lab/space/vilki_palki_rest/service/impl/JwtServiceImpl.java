@@ -4,6 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import lab.space.vilki_palki_rest.service.JwtService;
+import lab.space.vilki_palki_rest.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,6 +22,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Slf4j
 public class JwtServiceImpl implements JwtService {
+    private final UserService userService;
 
     @Value("${app.jwt.secret}")
     private String JWT_SECRET;
@@ -48,6 +50,7 @@ public class JwtServiceImpl implements JwtService {
         Map<String, String> tokens = new HashMap<>();
         tokens.put("access_token", accessToken);
         tokens.put("refresh_token", refreshToken);
+        userService.addUserPass(userDetails.getUsername());
         return tokens;
     }
 
