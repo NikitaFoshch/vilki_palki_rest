@@ -23,7 +23,7 @@ public class ProductController {
     @Operation(summary = "Get all products by request",
             description = "Enter your value, producTypeId can be null." +
                     "\n If you enter null , then get all products without filtering by type")
-    @GetMapping("get-all-products")
+    @PostMapping("get-all-products")
     public ResponseEntity<List<ProductResponse>> getAllProductsByRequest(@RequestBody ProductRequest request) {
         return ResponseEntity.ok(productService.getAllProduct(request));
     }

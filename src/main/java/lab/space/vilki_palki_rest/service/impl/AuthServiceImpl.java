@@ -56,7 +56,7 @@ public class AuthServiceImpl implements AuthService {
             User user = userService.getUserByEmail(request.getEmail());
             log.info("Try to generate token");
             return ResponseEntity.ok(jwtService.generateTokens(user));
-        } catch (BadCredentialsException | JWTDecodeException e) {
+        } catch (BadCredentialsException e) {
             log.warn("Bad try of authentication with " + request);
             return ResponseEntity
                     .status(HttpStatus.UNAUTHORIZED)
