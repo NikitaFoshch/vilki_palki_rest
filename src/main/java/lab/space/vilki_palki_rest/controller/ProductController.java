@@ -23,8 +23,7 @@ public class ProductController {
     private final ProductService productService;
 
     @Operation(summary = "Get all products by request",
-            description = "Enter your value, producTypeId can be null." +
-                    "\n If you enter null , then get all products without filtering by type")
+            description = "Enter your value")
     @GetMapping("get-all-products/{pTId}/{pCId}")
     public ResponseEntity<?> getAllProductsByRequest(@PathVariable Long pTId, @PathVariable Long pCId) {
         try {
