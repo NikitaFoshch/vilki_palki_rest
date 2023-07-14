@@ -30,7 +30,7 @@ public class ProductServiceImpl implements ProductService {
         return productRepository
                 .findAll(Sort.by(Sort.Direction.ASC, "name"))
                 .stream()
-                .filter(product -> pTId == -1
+                .filter(product -> pTId == 0
                         ||
                         product.getProductType().equals(
                                 productTypeService.getProductType(pTId)
