@@ -2,6 +2,8 @@ package lab.space.vilki_palki_rest.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+
+import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import lab.space.vilki_palki_rest.model.address.AddressResponse;
 import lab.space.vilki_palki_rest.model.address.AddressSaveRequest;
@@ -9,6 +11,7 @@ import lab.space.vilki_palki_rest.model.address.AddressUpdateRequest;
 import lab.space.vilki_palki_rest.service.AddressService;
 import lab.space.vilki_palki_rest.util.ErrorMapper;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -40,8 +43,13 @@ public class AddressController {
         if (bindingResult.hasErrors()){
             return ResponseEntity.badRequest().body(ErrorMapper.mapErrors(bindingResult));
         }
-        addressService.saveAddress(request);
-        return ResponseEntity.ok().build();
+        try {
+            addressService.saveAddress(request);
+            return ResponseEntity.ok().build();
+        } catch (EntityNotFoundException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("User not found with id " + request.getUserId());
+        }
     }
 
     @Operation(summary = "Update address", description = "Enter your value")
@@ -51,8 +59,13 @@ public class AddressController {
         if (bindingResult.hasErrors()){
             return ResponseEntity.badRequest().body(ErrorMapper.mapErrors(bindingResult));
         }
-        addressService.updateAddress(request);
-        return ResponseEntity.ok().build();
+        try {
+            addressService.updateAddress(request);
+            return ResponseEntity.ok().build();
+        } catch (EntityNotFoundException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Address or User not found");
+        }
     }
 
     @Operation(summary = "Delete address by id")
