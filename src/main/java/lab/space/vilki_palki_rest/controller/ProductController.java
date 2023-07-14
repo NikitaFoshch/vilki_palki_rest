@@ -2,13 +2,15 @@ package lab.space.vilki_palki_rest.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lab.space.vilki_palki_rest.model.product.ProductRequest;
 import lab.space.vilki_palki_rest.model.product.ProductResponse;
 import lab.space.vilki_palki_rest.service.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
@@ -23,9 +25,15 @@ public class ProductController {
     @Operation(summary = "Get all products by request",
             description = "Enter your value, producTypeId can be null." +
                     "\n If you enter null , then get all products without filtering by type")
-    @PostMapping("get-all-products")
-    public ResponseEntity<List<ProductResponse>> getAllProductsByRequest(@RequestBody ProductRequest request) {
-        return ResponseEntity.ok(productService.getAllProduct(request));
+    @GetMapping("get-all-products/{pTId}/{pCId}")
+    public ResponseEntity<?> getAllProductsByRequest(@PathVariable Long pTId, @PathVariable Long pCId) {
+        try {
+            List<ProductResponse> productResponse = productService.getAllProduct(pTId, pCId);
+            return ResponseEntity.ok(productResponse);
+        } catch (EntityNotFoundException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Products not found");
+        }
     }
 
     @Operation(summary = "Get product by id", description = "Enter your value")

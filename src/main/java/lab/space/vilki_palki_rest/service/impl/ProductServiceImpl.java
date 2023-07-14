@@ -1,9 +1,7 @@
 package lab.space.vilki_palki_rest.service.impl;
 
-import javax.persistence.EntityNotFoundException;
 import lab.space.vilki_palki_rest.entity.Product;
 import lab.space.vilki_palki_rest.mapper.ProductMapper;
-import lab.space.vilki_palki_rest.model.product.ProductRequest;
 import lab.space.vilki_palki_rest.model.product.ProductResponse;
 import lab.space.vilki_palki_rest.repository.ProductRepository;
 import lab.space.vilki_palki_rest.service.ProductCategoryService;
@@ -14,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,18 +26,18 @@ public class ProductServiceImpl implements ProductService {
     private final ProductMapper productMapper;
 
     @Override
-    public List<ProductResponse> getAllProduct(ProductRequest request) {
+    public List<ProductResponse> getAllProduct(Long pTId, Long pCId) {
         return productRepository
                 .findAll(Sort.by(Sort.Direction.ASC, "name"))
                 .stream()
-                .filter(product -> request.getProductTypeId() == null
-                            ||
-                            product.getProductType().equals(
-                                    productTypeService.getProductType(request.getProductTypeId())
-                            )
+                .filter(product -> pTId == null
+                        ||
+                        product.getProductType().equals(
+                                productTypeService.getProductType(pTId)
+                        )
                 )
                 .filter(product -> product.getProductCategory().equals(
-                                productCategoryService.getProductCategory(request.getProductCategoryId())
+                                productCategoryService.getProductCategory(pCId)
                         )
                 )
                 .map(productMapper::toSimpleDto)
