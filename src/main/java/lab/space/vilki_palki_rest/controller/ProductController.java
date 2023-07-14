@@ -20,17 +20,17 @@ import java.util.List;
 public class ProductController {
     private final ProductService productService;
 
-    @Operation(summary = "Get all products by request" ,
+    @Operation(summary = "Get all products by request",
             description = "Enter your value, producTypeId can be null." +
-            "\n If you enter null , then get all products without filtering by type")
+                    "\n If you enter null , then get all products without filtering by type")
     @GetMapping("get-all-products")
-    public ResponseEntity<List<ProductResponse>> getAllProductsByRequest(@RequestBody ProductRequest request){
+    public ResponseEntity<List<ProductResponse>> getAllProductsByRequest(@RequestBody ProductRequest request) {
         return ResponseEntity.ok(productService.getAllProduct(request));
     }
 
-    @Operation(summary = "Get product by id" , description = "Enter your value")
+    @Operation(summary = "Get product by id", description = "Enter your value")
     @GetMapping("get-product/{id}")
-    public ResponseEntity<?> getProduct(@PathVariable Long id){
+    public ResponseEntity<?> getProduct(@PathVariable Long id) {
         try {
             ProductResponse productResponse = productService.getProductDto(id);
             return ResponseEntity.ok(productResponse);

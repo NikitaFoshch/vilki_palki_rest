@@ -2,7 +2,6 @@ package lab.space.vilki_palki_rest.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lab.space.vilki_palki_rest.model.product.ProductResponse;
 import lab.space.vilki_palki_rest.model.product_category.ProductCategoryResponse;
 import lab.space.vilki_palki_rest.service.ProductCategoryService;
 import lombok.AllArgsConstructor;
@@ -23,7 +22,7 @@ import java.util.List;
 public class ProductCategoryController {
     private final ProductCategoryService productCategoryService;
 
-    @Operation(summary = "Get product category by id" , description = "Enter your value")
+    @Operation(summary = "Get product category by id", description = "Enter your value")
     @GetMapping("get-product-category/{id}")
     public ResponseEntity<?> getProductCategory(@PathVariable Long id) {
         try {

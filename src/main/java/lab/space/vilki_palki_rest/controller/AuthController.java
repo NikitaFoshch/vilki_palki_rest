@@ -1,8 +1,6 @@
 package lab.space.vilki_palki_rest.controller;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
-import javax.validation.Valid;
-
 import lab.space.vilki_palki_rest.model.user.UserAuthRequest;
 import lab.space.vilki_palki_rest.model.user.UserRequest;
 import lab.space.vilki_palki_rest.service.AuthService;
@@ -15,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("auth")
 @AllArgsConstructor
@@ -24,8 +24,8 @@ public class AuthController {
 
     @PostMapping("enter-email")
     public ResponseEntity<?> enterEmail(@Valid @RequestBody UserRequest request,
-                                        BindingResult bindingResult){
-        if (bindingResult.hasErrors()){
+                                        BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().body(ErrorMapper.mapErrors(bindingResult));
         }
         authService.sendCodeByUserByEmail(request);
@@ -34,8 +34,8 @@ public class AuthController {
 
     @PostMapping("login")
     public ResponseEntity<?> login(@Valid @RequestBody UserAuthRequest request,
-                                   BindingResult bindingResult){
-        if (bindingResult.hasErrors()){
+                                   BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().body(ErrorMapper.mapErrors(bindingResult));
         }
         return authService.authentication(request);

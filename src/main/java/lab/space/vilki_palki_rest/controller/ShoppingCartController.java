@@ -20,20 +20,20 @@ public class ShoppingCartController {
 
     @Operation(summary = "Get all shopping cart by user by id", description = "Enter your value")
     @GetMapping("get-all-shopping-cart-by-user-id/{id}")
-    public ResponseEntity<List<ShoppingCartResponse>> getAllShoppingCartByUserId(@PathVariable Long id){
+    public ResponseEntity<List<ShoppingCartResponse>> getAllShoppingCartByUserId(@PathVariable Long id) {
         return ResponseEntity.ok(shoppingCartService.getAllShoppingCartByUserId(id));
     }
 
     @Operation(summary = "Save shopping cart")
     @PostMapping("save-shopping-cart")
-    public ResponseEntity<?> saveShoppingCart(@RequestBody ShoppingCartSaveRequest request){
+    public ResponseEntity<?> saveShoppingCart(@RequestBody ShoppingCartSaveRequest request) {
         shoppingCartService.saveShoppingCart(request);
         return ResponseEntity.ok().build();
     }
 
     @Operation(summary = "Delete shopping cart by user by id", description = "Enter your value")
     @DeleteMapping("delete-shopping-cart/{id}")
-    public ResponseEntity<?> deleteShoppingCart(@PathVariable Long id){
+    public ResponseEntity<?> deleteShoppingCart(@PathVariable Long id) {
         shoppingCartService.deleteShoppingCart(id);
         return ResponseEntity.ok().build();
     }

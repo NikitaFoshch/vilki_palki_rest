@@ -2,7 +2,6 @@ package lab.space.vilki_palki_rest.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import javax.validation.Valid;
 import lab.space.vilki_palki_rest.model.order.OrderResponse;
 import lab.space.vilki_palki_rest.model.order.OrderSaveRequest;
 import lab.space.vilki_palki_rest.service.OrderService;
@@ -12,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -21,13 +21,13 @@ import java.util.List;
 public class OrderController {
     private final OrderService orderService;
 
-    @Operation(summary = "Get order by id" , description = "Enter your value")
+    @Operation(summary = "Get order by id", description = "Enter your value")
     @GetMapping("get-order/{id}")
     public ResponseEntity<OrderResponse> getOrder(@PathVariable Long id) {
         return ResponseEntity.ok(orderService.getOrderDto(id));
     }
 
-    @Operation(summary = "Get all orders by user id" , description = "Enter your value")
+    @Operation(summary = "Get all orders by user id", description = "Enter your value")
     @GetMapping("get-all-orders-by-user-id/{id}")
     public ResponseEntity<List<OrderResponse>> getAllOrders(@PathVariable Long id) {
         return ResponseEntity.ok(orderService.getAllOrdersByUserId(id));

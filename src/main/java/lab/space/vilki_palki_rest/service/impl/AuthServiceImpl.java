@@ -1,5 +1,6 @@
 package lab.space.vilki_palki_rest.service.impl;
 
+import com.auth0.jwt.exceptions.JWTDecodeException;
 import lab.space.vilki_palki_rest.entity.User;
 import lab.space.vilki_palki_rest.model.user.UserAuthRequest;
 import lab.space.vilki_palki_rest.model.user.UserRequest;
@@ -55,7 +56,7 @@ public class AuthServiceImpl implements AuthService {
             User user = userService.getUserByEmail(request.getEmail());
             log.info("Try to generate token");
             return ResponseEntity.ok(jwtService.generateTokens(user));
-        } catch (BadCredentialsException e) {
+        } catch (BadCredentialsException | JWTDecodeException e) {
             log.warn("Bad try of authentication with " + request);
             return ResponseEntity
                     .status(HttpStatus.UNAUTHORIZED)

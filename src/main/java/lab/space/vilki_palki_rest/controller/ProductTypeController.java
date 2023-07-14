@@ -21,7 +21,7 @@ public class ProductTypeController {
 
     @Operation(summary = "Get all product types")
     @GetMapping("get-all-product-types")
-    public ResponseEntity<List<ProductTypeResponse>> getAllProductType(){
+    public ResponseEntity<List<ProductTypeResponse>> getAllProductType() {
         return ResponseEntity.ok(productTypeService.getAllProductType());
     }
 }

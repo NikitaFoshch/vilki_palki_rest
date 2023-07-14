@@ -21,7 +21,7 @@ public class StructureCategoryController {
 
     @Operation(summary = "Get all structure categories")
     @GetMapping("get-all-structure-categories")
-    public ResponseEntity<List<StructureCategoryResponse>> getAllStructureCategories(){
+    public ResponseEntity<List<StructureCategoryResponse>> getAllStructureCategories() {
         return ResponseEntity.ok(structureCategoryService.getAllStructureCategories());
     }
 }

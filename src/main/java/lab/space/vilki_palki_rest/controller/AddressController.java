@@ -2,9 +2,6 @@ package lab.space.vilki_palki_rest.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
-import javax.persistence.EntityNotFoundException;
-import javax.validation.Valid;
 import lab.space.vilki_palki_rest.model.address.AddressResponse;
 import lab.space.vilki_palki_rest.model.address.AddressSaveRequest;
 import lab.space.vilki_palki_rest.model.address.AddressUpdateRequest;
@@ -16,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -25,22 +24,23 @@ import java.util.List;
 public class AddressController {
     private final AddressService addressService;
 
-    @Operation(summary = "Get address by id" , description = "Enter your value")
+    @Operation(summary = "Get address by id", description = "Enter your value")
     @GetMapping("get-address/{id}")
-    public ResponseEntity<AddressResponse> getAddress(@PathVariable Long id){
+    public ResponseEntity<AddressResponse> getAddress(@PathVariable Long id) {
         return ResponseEntity.ok(addressService.getAddressDto(id));
     }
+
     @Operation(summary = "Get all addresses by user id", description = "Enter your value")
     @GetMapping("get-all-addresses-by-user-id/{id}")
-    public ResponseEntity<List<AddressResponse>> getAllAddresses(@PathVariable Long id){
+    public ResponseEntity<List<AddressResponse>> getAllAddresses(@PathVariable Long id) {
         return ResponseEntity.ok(addressService.getAllAddressByUserId(id));
     }
 
     @Operation(summary = "Save address")
     @PostMapping("save-address")
     public ResponseEntity<?> saveAddress(@Valid @RequestBody AddressSaveRequest request,
-                                         BindingResult bindingResult){
-        if (bindingResult.hasErrors()){
+                                         BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().body(ErrorMapper.mapErrors(bindingResult));
         }
         try {
@@ -55,8 +55,8 @@ public class AddressController {
     @Operation(summary = "Update address", description = "Enter your value")
     @PutMapping("update-address")
     public ResponseEntity<?> updateAddress(@Valid @RequestBody AddressUpdateRequest request,
-                                           BindingResult bindingResult){
-        if (bindingResult.hasErrors()){
+                                           BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().body(ErrorMapper.mapErrors(bindingResult));
         }
         try {
@@ -70,7 +70,7 @@ public class AddressController {
 
     @Operation(summary = "Delete address by id")
     @DeleteMapping("delete-address/{id}")
-    public ResponseEntity<?> updateAddress(@PathVariable Long id){
+    public ResponseEntity<?> updateAddress(@PathVariable Long id) {
         addressService.deleteAddress(id);
         return ResponseEntity.ok().build();
     }

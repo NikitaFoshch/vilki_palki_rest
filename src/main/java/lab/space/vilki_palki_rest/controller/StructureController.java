@@ -21,7 +21,7 @@ public class StructureController {
 
     @Operation(summary = "Get all structure")
     @GetMapping("get-all-structures")
-    public ResponseEntity<List<StructureResponse>> getAllStructure(){
+    public ResponseEntity<List<StructureResponse>> getAllStructure() {
         return ResponseEntity.ok(structureService.getAllStructuresDto());
     }
 }

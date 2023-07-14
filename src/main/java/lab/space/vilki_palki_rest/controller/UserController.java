@@ -1,13 +1,7 @@
 package lab.space.vilki_palki_rest.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
-import javax.persistence.EntityNotFoundException;
-import javax.validation.Valid;
-
-import lab.space.vilki_palki_rest.model.product_category.ProductCategoryResponse;
 import lab.space.vilki_palki_rest.model.user.UserResponse;
 import lab.space.vilki_palki_rest.model.user.UserUpdateRequest;
 import lab.space.vilki_palki_rest.service.UserService;
@@ -17,6 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.persistence.EntityNotFoundException;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("user")
@@ -36,6 +33,7 @@ public class UserController {
                     .body("User not found with id " + id);
         }
     }
+
     @Operation(summary = "Update user by request", description = "Enter your value")
     @PutMapping("update-user")
     private ResponseEntity<?> updateUser(@Valid @RequestBody UserUpdateRequest request,

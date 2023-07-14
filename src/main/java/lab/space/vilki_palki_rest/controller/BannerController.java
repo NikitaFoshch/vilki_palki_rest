@@ -21,7 +21,7 @@ public class BannerController {
 
     @Operation(summary = "Get all banners")
     @GetMapping("get-all-banners")
-    public ResponseEntity<List<BannerResponse>> getAllBanners(){
+    public ResponseEntity<List<BannerResponse>> getAllBanners() {
         return ResponseEntity.ok(bannerService.getAllBanners());
     }
 }
