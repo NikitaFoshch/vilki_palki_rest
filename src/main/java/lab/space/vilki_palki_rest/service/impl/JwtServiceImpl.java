@@ -40,7 +40,7 @@ public class JwtServiceImpl implements JwtService {
         String accessToken = JWT.create()
                 .withSubject(userDetails.getUsername())
                 .withIssuedAt(new Date())
-                .withExpiresAt(new Date(System.currentTimeMillis() + 600000000L * ACCESS_JWT_EXPIRED_TIME))
+                .withExpiresAt(new Date(System.currentTimeMillis() + 604800017L * ACCESS_JWT_EXPIRED_TIME))
                 .sign(getSignInAlgorithm());
         String refreshToken = JWT.create()
                 .withSubject(userDetails.getUsername())

@@ -6,9 +6,11 @@ import lab.space.vilki_palki_rest.model.product.ProductRequest;
 import lab.space.vilki_palki_rest.model.product.ProductResponse;
 import lab.space.vilki_palki_rest.service.ProductService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @RestController
@@ -28,7 +30,13 @@ public class ProductController {
 
     @Operation(summary = "Get product by id" , description = "Enter your value")
     @GetMapping("get-product/{id}")
-    public ResponseEntity<ProductResponse> getProduct(@PathVariable Long id){
-        return ResponseEntity.ok(productService.getProductDto(id));
+    public ResponseEntity<?> getProduct(@PathVariable Long id){
+        try {
+            ProductResponse productResponse = productService.getProductDto(id);
+            return ResponseEntity.ok(productResponse);
+        } catch (EntityNotFoundException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Product not found with id " + id);
+        }
     }
 }
