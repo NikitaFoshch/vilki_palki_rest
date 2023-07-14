@@ -2,6 +2,7 @@ package lab.space.vilki_palki_rest.service.impl;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import lab.space.vilki_palki_rest.service.JwtService;
 import lab.space.vilki_palki_rest.service.UserService;
