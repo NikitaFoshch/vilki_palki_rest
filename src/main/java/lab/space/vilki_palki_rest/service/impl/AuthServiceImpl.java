@@ -64,7 +64,7 @@ public class AuthServiceImpl implements AuthService {
         }
     }
 
-    private void checkEmail(UserRequest request) {
+    public void checkEmail(UserRequest request) {
         if (userService.getUserByEmail(request.getEmail()) == null) {
             userService.saveUser(request.getEmail());
         }

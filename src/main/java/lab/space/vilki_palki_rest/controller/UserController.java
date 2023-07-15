@@ -36,7 +36,7 @@ public class UserController {
 
     @Operation(summary = "Update user by request", description = "Enter your value")
     @PutMapping("update-user")
-    private ResponseEntity<?> updateUser(@Valid @RequestBody UserUpdateRequest request,
+    public ResponseEntity<?> updateUser(@Valid @RequestBody UserUpdateRequest request,
                                          BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().body(ErrorMapper.mapErrors(bindingResult));

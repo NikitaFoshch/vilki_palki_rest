@@ -11,6 +11,19 @@ spring:
     username: avada_slj_vp
     password: mgBOTd2tBb
     driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database: postgresql
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 50MB
+
   mail:
     host: smtp.gmail.com
     username: test.in.odessa@gmail.com
@@ -21,28 +34,6 @@ spring:
       mail.smtp.starttls.enable: true
       mail.smtp.starttls.required: true
     protocol: smtp
-
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-    database: postgresql
-  servlet:
-    multipart:
-      max-file-size: 20MB
-      max-request-size: 50MB
-
-logging:
-  file:
-    name: /home/avada/web/slj.avada-media-dev1.od.ua/slj/vp/rest.log
-  level:
-    org:
-      hibernate: info
-      springframework: info
-    root: info
-  logback:
-    rollingpolicy:
-      max-file-size: 10MB
 
 app:
   jwt:

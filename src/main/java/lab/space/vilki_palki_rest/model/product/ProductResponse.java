@@ -14,7 +14,7 @@ import java.util.List;
 @Builder
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class ProductResponse{
-        private Long id;
+    private Long id;
     private String name;
     private BigDecimal price;
     private String productInfo;
