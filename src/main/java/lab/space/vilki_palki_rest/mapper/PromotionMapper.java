@@ -31,9 +31,7 @@ public class PromotionMapper {
                 .id(promotion.getId())
                 .name(promotion.getName())
                 .image(
-                        UriComponentsBuilder
-                                .fromUri(ServletUriComponentsBuilder.fromCurrentContextPath().build().toUri())
-                                .path("/files/" + promotion.getImage()).toUriString()
+                        "http://slj.avada-media-dev1.od.ua/Vilki_Palki_Api/files/" + promotion.getImage()
                 )
                 .totalPrice(promotion.getTotalPrice().longValue())
                 .product(productService.getProductSimpleDto(promotion.getProduct().getId()))
