@@ -31,7 +31,7 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 
     @Override
     public Page<ProductCategoryResponse> getAllProductCategoryOrderByCreateAt() {
-        return productCategoryRepository.findAll(PageRequest.of(1,10))
+        return productCategoryRepository.findAll(PageRequest.of(0,10))
                 .map(ProductCategoryMapper::toDto);
     }
 }
