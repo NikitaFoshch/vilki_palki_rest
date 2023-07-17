@@ -33,7 +33,10 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public ResponseEntity<?> getOrderDto(Long id) {
-        if (!userService.getCurrentUser().getOrders().isEmpty()) {
+        if (!userService.getCurrentUser().getOrders().isEmpty()
+                && userService.getCurrentUser().getOrders()
+                .stream()
+                .anyMatch(orderResponse -> orderResponse.getId().equals(id))) {
             return ResponseEntity.ok(OrderMapper.toSimplifiedDto(getOrder(id)));
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)

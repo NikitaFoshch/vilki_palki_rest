@@ -58,7 +58,7 @@ public class AddressController {
 
     @Operation(summary = "Delete address by id")
     @DeleteMapping("delete-address/{id}")
-    public ResponseEntity<?> updateAddress(@PathVariable Long id) {
+    public ResponseEntity<?> deleteAddress(@PathVariable Long id) {
         return addressService.deleteAddress(id);
     }
 }

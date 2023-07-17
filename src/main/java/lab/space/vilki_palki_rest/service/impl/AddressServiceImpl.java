@@ -14,7 +14,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.Objects;
 import java.util.stream.Collectors;
+
+import static java.util.Objects.*;
 
 @Service
 @Slf4j
@@ -31,7 +34,9 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public ResponseEntity<?> getAddressDto(Long id) {
-        if (!userService.getCurrentUser().getOrders().isEmpty()) {
+        if (userService.getCurrentUser().getAddresses()
+                .stream()
+                .anyMatch(addressResponse -> addressResponse.getId().equals(id))) {
             return ResponseEntity.ok(AddressMapper.toSimplifiedDto(getAddress(id)));
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
@@ -41,7 +46,7 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public ResponseEntity<?> getAllAddressByUser() {
-        if (!userService.getCurrentUser().getAddresses().isEmpty()) {
+        if (nonNull(userService.getCurrentUser().getAddresses())) {
             return ResponseEntity.ok(addressRepository.findAllByUserIdOrderByCreateAt(userService.getCurrentUser().getId())
                     .stream().map(AddressMapper::toSimplifiedDto).collect(Collectors.toList()));
         } else {

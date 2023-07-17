@@ -25,7 +25,6 @@ import java.util.stream.Collectors;
 @Tag(name = "Orders", description = "Operations related to Orders")
 public class OrderController {
     private final OrderService orderService;
-    private final UserService userService;
 
     @Operation(summary = "Get order by id", description = "Enter your value")
     @GetMapping("get-order/{id}")
@@ -33,15 +32,10 @@ public class OrderController {
         return orderService.getOrderDto(id);
     }
 
-    @Operation(summary = "Get all orders by user id", description = "Enter your value")
+    @Operation(summary = "Get all orders by user id")
     @GetMapping("get-all-orders")
     public ResponseEntity<?> getAllOrders() {
-        if (!userService.getCurrentUser().getAddresses().isEmpty()) {
             return ResponseEntity.ok(orderService.getAllOrdersByUser());
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Address not found");
-        }
     }
 
     @Operation(summary = "Save order")
