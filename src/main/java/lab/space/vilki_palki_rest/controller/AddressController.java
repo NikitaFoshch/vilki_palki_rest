@@ -26,6 +26,10 @@ public class AddressController {
     @Operation(summary = "Get address by id", description = "Enter your value")
     @GetMapping("get-address/{id}")
     public ResponseEntity<?> getAddress(@PathVariable Long id) {
+        if (id < 1) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Address Id must be >=1");
+        }
         return addressService.getAddressDto(id);
     }
 
@@ -59,6 +63,10 @@ public class AddressController {
     @Operation(summary = "Delete address by id")
     @DeleteMapping("delete-address/{id}")
     public ResponseEntity<?> deleteAddress(@PathVariable Long id) {
+        if (id < 1) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Address Id must be >=1");
+        }
         return addressService.deleteAddress(id);
     }
 }

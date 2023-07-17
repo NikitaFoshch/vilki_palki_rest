@@ -25,6 +25,10 @@ public class ProductCategoryController {
     @Operation(summary = "Get product category by id", description = "Enter your value")
     @GetMapping("get-product-category/{id}")
     public ResponseEntity<?> getProductCategory(@PathVariable Long id) {
+        if (id < 1) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Product Category Id must be >=1");
+        }
         try {
             ProductCategoryResponse productCategoryResponse = productCategoryService.getProductCategoryDTO(id);
             return ResponseEntity.ok(productCategoryResponse);

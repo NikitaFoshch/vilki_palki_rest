@@ -39,6 +39,10 @@ public class ShoppingCartController {
     @Operation(summary = "Delete shopping cart by user by id", description = "Enter your value")
     @DeleteMapping("delete-shopping-cart/{id}")
     public ResponseEntity<?> deleteShoppingCart(@PathVariable Long id) {
+        if (id < 1) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Shopping Cart Id must be >=1");
+        }
         return shoppingCartService.deleteShoppingCart(id);
     }
 }

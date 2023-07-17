@@ -29,6 +29,10 @@ public class OrderController {
     @Operation(summary = "Get order by id", description = "Enter your value")
     @GetMapping("get-order/{id}")
     public ResponseEntity<?> getOrder(@PathVariable Long id) {
+        if (id < 1) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Order Id must be >=1");
+        }
         return orderService.getOrderDto(id);
     }
 
