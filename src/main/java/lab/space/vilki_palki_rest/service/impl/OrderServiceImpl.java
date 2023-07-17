@@ -2,6 +2,7 @@ package lab.space.vilki_palki_rest.service.impl;
 
 import lab.space.vilki_palki_rest.entity.Order;
 import lab.space.vilki_palki_rest.mapper.OrderMapper;
+import lab.space.vilki_palki_rest.model.order.OrderResponse;
 import lab.space.vilki_palki_rest.model.order.OrderSaveRequest;
 import lab.space.vilki_palki_rest.repository.OrderRepository;
 import lab.space.vilki_palki_rest.service.OrderService;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.time.Instant;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -40,14 +42,9 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public ResponseEntity<?> getAllOrdersByUser() {
-        if (!userService.getCurrentUser().getOrders().isEmpty()) {
-            return ResponseEntity.ok(orderRepository.findAllByUserIdOrderByCreateAt(userService.getCurrentUser().getId())
-                    .stream().map(OrderMapper::toSimplifiedDto).collect(Collectors.toList()));
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Orders not found");
-        }
+    public List<OrderResponse> getAllOrdersByUser() {
+            return orderRepository.findAllByUserIdOrderByCreateAt(userService.getCurrentUser().getId())
+                    .stream().map(OrderMapper::toSimplifiedDto).collect(Collectors.toList());
     }
 
     @Override
