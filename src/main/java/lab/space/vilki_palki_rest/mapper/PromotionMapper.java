@@ -31,7 +31,7 @@ public class PromotionMapper {
                 .id(promotion.getId())
                 .name(promotion.getName())
                 .image(
-                        "http://slj.avada-media-dev1.od.ua/Vilki_Palki_Api/files/" + promotion.getImage()
+                        "http://slj.avada-media-dev1.od.ua/Vilki_Palki_Admin/files/" + promotion.getImage()
                 )
                 .totalPrice(promotion.getTotalPrice().longValue())
                 .product(productService.getProductSimpleDto(promotion.getProduct().getId()))
