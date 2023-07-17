@@ -9,7 +9,7 @@ public interface BannerMapper {
         return BannerResponse.builder()
                 .id(banner.getId())
                 .name(banner.getName())
-                .image(banner.getImage())
+                .image("http://slj.avada-media-dev1.od.ua/Vilki_Palki_Admin/files/" + banner.getImage())
                 .build();
     }
 }

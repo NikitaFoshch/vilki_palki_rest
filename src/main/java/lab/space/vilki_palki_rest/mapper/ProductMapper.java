@@ -25,9 +25,7 @@ public class ProductMapper {
                 .id(product.getId())
                 .name(product.getName())
                 .image(
-                        UriComponentsBuilder
-                                .fromUri(ServletUriComponentsBuilder.fromCurrentContextPath().build().toUri())
-                                .path("/files/" + product.getImage()).toUriString()
+                        "http://slj.avada-media-dev1.od.ua/Vilki_Palki_Admin/files/" + product.getImage()
                 )
                 .price(product.getPrice())
                 .build();
@@ -38,9 +36,7 @@ public class ProductMapper {
                 .id(product.getId())
                 .name(product.getName())
                 .image(
-                        UriComponentsBuilder
-                                .fromUri(ServletUriComponentsBuilder.fromCurrentContextPath().build().toUri())
-                                .path("/files/" + product.getImage()).toUriString()
+                        "http://slj.avada-media-dev1.od.ua/Vilki_Palki_Admin/files/" + product.getImage()
                 )
                 .price(product.getPrice())
                 .productInfo(product.getProductInfo())

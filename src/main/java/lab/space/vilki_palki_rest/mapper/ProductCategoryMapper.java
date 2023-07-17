@@ -18,9 +18,7 @@ public interface ProductCategoryMapper {
                 .id(productCategory.getId())
                 .name(productCategory.getName())
                 .image(
-                        UriComponentsBuilder
-                                .fromUri(ServletUriComponentsBuilder.fromCurrentContextPath().build().toUri())
-                                .path("/files/" + productCategory.getImage()).toUriString()
+                        "http://slj.avada-media-dev1.od.ua/Vilki_Palki_Admin/files/" + productCategory.getImage()
                 )
                 .build();
     }

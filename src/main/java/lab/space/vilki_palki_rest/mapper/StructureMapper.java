@@ -22,9 +22,7 @@ public class StructureMapper {
                 .weight(structure.getWeight().toString())
                 .price(structure.getPrice())
                 .image(
-                        UriComponentsBuilder
-                                .fromUri(ServletUriComponentsBuilder.fromCurrentContextPath().build().toUri())
-                                .path("/files/" + structure.getImage()).toUriString()
+                        "http://slj.avada-media-dev1.od.ua/Vilki_Palki_Admin/files/" + structure.getImage()
                 )
                 .build();
     }
@@ -34,9 +32,7 @@ public class StructureMapper {
                 .id(structure.getId())
                 .name(structure.getName())
                 .image(
-                        UriComponentsBuilder
-                                .fromUri(ServletUriComponentsBuilder.fromCurrentContextPath().build().toUri())
-                                .path("/files/" + structure.getImage()).toUriString()
+                        "http://slj.avada-media-dev1.od.ua/Vilki_Palki_Admin/files/" + structure.getImage()
                 )
                 .build();
     }
