@@ -66,7 +66,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 getUserById(getUserByEmail(email).getId())
                         .setEmail(requestUser.getEmail())
                         .setName(requestUser.getName())
-                        .setBirthday(requestUser.getBirthday())
+                        .setBirthday(null)
                         .setPhone(requestUser.getPhone())
                         .setBonusPoints(requestUser.getBonusPoints())
                         .setFacebookId(requestUser.getFacebookId())

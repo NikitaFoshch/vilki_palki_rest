@@ -31,14 +31,11 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public ResponseEntity<?> getAddressDto(Long id) {
-        if (!userService.getCurrentUser().getOrders().isEmpty()
-                && userService.getCurrentUser().getOrders()
-                .stream()
-                .anyMatch(orderResponse -> orderResponse.getId().equals(id))) {
+        if (!userService.getCurrentUser().getOrders().isEmpty()) {
             return ResponseEntity.ok(AddressMapper.toSimplifiedDto(getAddress(id)));
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Orders not found");
+                    .body("Address not found");
         }
     }
 

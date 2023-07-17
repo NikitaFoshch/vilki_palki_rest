@@ -17,9 +17,6 @@ public class UserUpdateRequest {
     @Size(max = 20, message = "Must be no more than {max} symbols")
     @Schema(name = "phone", example = "380974440088")
     private String phone;
-    @JsonFormat(pattern = "dd.MM.yyyy", timezone = "UTC")
-    @Schema(name = "birthday", example = "11.12.2000")
-    private Instant birthday;
     @Size(max = 20, message = "Must be no more than {max} symbols")
     @Schema(name = "facebookId", example = "@facebookId")
     private String facebookId;
