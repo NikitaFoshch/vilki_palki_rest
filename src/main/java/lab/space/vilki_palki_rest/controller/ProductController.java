@@ -24,7 +24,8 @@ public class ProductController {
 
     @Operation(summary = "Get all products by request",
             description = "Enter your value, producTypeId can be 0." +
-                    "\n If you enter 0 , then get all products without filtering by type")
+                    "\n If you enter 0 , then get all products without filtering by type. " +
+                    "\nThis controller returns a total of 10 objects according to pagination (first page = 0)")
     @GetMapping("get-all-products/{productTypeId}/{productCategoryId}/{page}")
     public ResponseEntity<?> getAllProductsByRequest(@PathVariable Long productTypeId,
                                                      @PathVariable Long productCategoryId,

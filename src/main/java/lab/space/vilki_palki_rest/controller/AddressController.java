@@ -31,7 +31,8 @@ public class AddressController {
         return addressService.getAddressDto(id);
     }
 
-    @Operation(summary = "Get all addresses")
+    @Operation(summary = "Get all addresses", description = "This controller returns a total of 10 objects " +
+            "according to pagination (first page = 0)")
     @GetMapping("get-all-addresses/{page}")
     public ResponseEntity<?> getAllAddresses(@PathVariable int page) {
         if (page < 0) {

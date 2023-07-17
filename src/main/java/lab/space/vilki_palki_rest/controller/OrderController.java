@@ -30,7 +30,8 @@ public class OrderController {
         return orderService.getOrderDto(id);
     }
 
-    @Operation(summary = "Get all orders")
+    @Operation(summary = "Get all orders", description = "This controller returns a total of 10 objects " +
+            "according to pagination (first page = 0)")
     @GetMapping("get-all-orders/{page}")
     public ResponseEntity<?> getAllOrders(@PathVariable int page) {
         if (page < 0) {

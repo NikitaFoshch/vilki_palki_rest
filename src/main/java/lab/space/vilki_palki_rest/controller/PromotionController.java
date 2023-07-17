@@ -20,7 +20,8 @@ import javax.persistence.EntityNotFoundException;
 public class PromotionController {
     private final PromotionService promotionService;
 
-    @Operation(summary = "Get all promotions")
+    @Operation(summary = "Get all promotions", description = "This controller returns a total of 10 objects " +
+            "according to pagination (first page = 0)")
     @GetMapping("get-all-promotions/{page}")
     public ResponseEntity<?> getAllPromotions(@PathVariable int page) {
         if (page < 0) {

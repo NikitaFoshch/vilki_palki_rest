@@ -37,7 +37,8 @@ public class ProductCategoryController {
         }
     }
 
-    @Operation(summary = "Get all product categories")
+    @Operation(summary = "Get all product categories", description = "This controller returns a total of 10 objects " +
+            "according to pagination (first page = 0)")
     @GetMapping("get-all-product-categories/{page}")
     public ResponseEntity<?> getAllProductCategories(@PathVariable int page) {
         if (page < 0) {

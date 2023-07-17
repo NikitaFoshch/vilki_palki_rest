@@ -18,7 +18,8 @@ import javax.persistence.EntityNotFoundException;
 public class ShoppingCartController {
     private final ShoppingCartService shoppingCartService;
 
-    @Operation(summary = "Get all shopping cart")
+    @Operation(summary = "Get all shopping cart", description = "This controller returns a total of 10 objects " +
+            "according to pagination (first page = 0)")
     @GetMapping("get-all-shopping-cart/{page}")
     public ResponseEntity<?> getAllShoppingCartByUserId(@PathVariable int page) {
         if (page < 0) {

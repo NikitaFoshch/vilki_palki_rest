@@ -18,7 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class BannerController {
     private final BannerService bannerService;
 
-    @Operation(summary = "Get all banners")
+    @Operation(summary = "Get all banners", description = "This controller returns a total of 10 objects " +
+            "according to pagination (first page = 0)")
     @GetMapping("get-all-banners/{page}")
     public ResponseEntity<?> getAllBanners(@PathVariable int page) {
         if (page < 0) {

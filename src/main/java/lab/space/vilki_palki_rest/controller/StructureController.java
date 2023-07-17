@@ -18,7 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class StructureController {
     private final StructureService structureService;
 
-    @Operation(summary = "Get all structure")
+    @Operation(summary = "Get all structure", description = "This controller returns a total of 10 objects " +
+            "according to pagination (first page = 0)")
     @GetMapping("get-all-structures/{page}")
     public ResponseEntity<?> getAllStructure(@PathVariable int page) {
         if (page < 0) {
