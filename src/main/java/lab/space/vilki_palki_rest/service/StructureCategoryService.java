@@ -7,5 +7,5 @@ import org.springframework.data.domain.Page;
 public interface StructureCategoryService {
     StructureCategory getStructureCategory(Long id);
     StructureCategoryResponse getStructureCategoryDto(Long id);
-    Page<StructureCategoryResponse> getAllStructureCategories();
+    Page<StructureCategoryResponse> getAllStructureCategories(int page);
 }

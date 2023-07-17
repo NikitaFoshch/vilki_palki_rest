@@ -2,11 +2,8 @@ package lab.space.vilki_palki_rest.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lab.space.vilki_palki_rest.model.product.ProductResponse;
-import lab.space.vilki_palki_rest.model.promotion.PromotionResponse;
 import lab.space.vilki_palki_rest.service.PromotionService;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.List;
 
 @RestController
 @RequestMapping("promotions")
@@ -25,9 +21,13 @@ public class PromotionController {
     private final PromotionService promotionService;
 
     @Operation(summary = "Get all promotions")
-    @GetMapping("get-all-promotions")
-    public ResponseEntity<Page<PromotionResponse>> getAllPromotions() {
-        return ResponseEntity.ok(promotionService.getAllPromotions());
+    @GetMapping("get-all-promotions/{page}")
+    public ResponseEntity<?> getAllPromotions(@PathVariable int page) {
+        if (page < 0) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Page must be >=0");
+        }
+        return ResponseEntity.ok(promotionService.getAllPromotions(page));
     }
 
     @Operation(summary = "Get promotion by id", description = "Enter your value")

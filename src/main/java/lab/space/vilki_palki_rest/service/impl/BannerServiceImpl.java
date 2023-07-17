@@ -1,6 +1,5 @@
 package lab.space.vilki_palki_rest.service.impl;
 
-import javax.persistence.EntityNotFoundException;
 import lab.space.vilki_palki_rest.entity.Banner;
 import lab.space.vilki_palki_rest.mapper.BannerMapper;
 import lab.space.vilki_palki_rest.model.banner.BannerResponse;
@@ -12,11 +11,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
+
 @Service
 @Slf4j
 @AllArgsConstructor
 public class BannerServiceImpl implements BannerService {
     private final BannerRepository bannerRepository;
+    private final int DEFAULT_PAGE_SIZE = 10;
 
     @Override
     public Banner getBanner(Long id) {
@@ -30,7 +32,7 @@ public class BannerServiceImpl implements BannerService {
     }
 
     @Override
-    public Page<BannerResponse> getAllBanners() {
-        return bannerRepository.findAll(PageRequest.of(1,10)).map(BannerMapper::toDto);
+    public Page<BannerResponse> getAllBanners(int page) {
+        return bannerRepository.findAll(PageRequest.of(page, DEFAULT_PAGE_SIZE)).map(BannerMapper::toDto);
     }
 }

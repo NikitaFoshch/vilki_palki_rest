@@ -9,5 +9,5 @@ public interface ProductCategoryService {
 
     ProductCategoryResponse getProductCategoryDTO(Long id);
 
-    Page<ProductCategoryResponse> getAllProductCategoryOrderByCreateAt();
+    Page<ProductCategoryResponse> getAllProductCategoryOrderByCreateAt(int page);
 }

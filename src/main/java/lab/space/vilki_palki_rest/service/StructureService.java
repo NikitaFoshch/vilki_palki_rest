@@ -7,5 +7,5 @@ import org.springframework.data.domain.Page;
 public interface StructureService {
     Structure getStructure(Long id);
     StructureResponse getStructureDto(Long id);
-    Page<StructureResponse> getAllStructuresDto();
+    Page<StructureResponse> getAllStructuresDto(int page);
 }

@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class StructureCategoryServiceImpl implements StructureCategoryService {
     private final StructureCategoryRepository structureCategoryRepository;
+    private final  int DEFAULT_PAGE_SIZE = 10;
 
     @Override
     public StructureCategory getStructureCategory(Long id) {
@@ -30,7 +31,7 @@ public class StructureCategoryServiceImpl implements StructureCategoryService {
     }
 
     @Override
-    public Page<StructureCategoryResponse> getAllStructureCategories() {
-        return structureCategoryRepository.findAll(PageRequest.of(1,10)).map(StructureCategoryMapper::toDto);
+    public Page<StructureCategoryResponse> getAllStructureCategories(int page) {
+        return structureCategoryRepository.findAll(PageRequest.of(page,DEFAULT_PAGE_SIZE)).map(StructureCategoryMapper::toDto);
     }
 }

@@ -10,7 +10,6 @@ import lab.space.vilki_palki_rest.service.ProductTypeService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -25,11 +24,12 @@ public class ProductServiceImpl implements ProductService {
     private final ProductTypeService productTypeService;
     private final ProductRepository productRepository;
     private final ProductMapper productMapper;
+    private final int DEFAULT_PAGE_SIZE = 10;
 
     @Override
-    public List<ProductResponse> getAllProduct(Long pTId, Long pCId) {
+    public List<ProductResponse> getAllProduct(Long pTId, Long pCId, int page) {
         return productRepository
-                .findAll(PageRequest.of(1,10))
+                .findAll(PageRequest.of(page, DEFAULT_PAGE_SIZE))
                 .stream()
                 .filter(product -> pTId == 0
                         ||

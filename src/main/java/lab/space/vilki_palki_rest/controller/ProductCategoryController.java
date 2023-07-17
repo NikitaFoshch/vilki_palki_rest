@@ -5,7 +5,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lab.space.vilki_palki_rest.model.product_category.ProductCategoryResponse;
 import lab.space.vilki_palki_rest.service.ProductCategoryService;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.List;
 
 @RestController
 @RequestMapping("product-categories")
@@ -40,8 +38,12 @@ public class ProductCategoryController {
     }
 
     @Operation(summary = "Get all product categories")
-    @GetMapping("get-all-product-categories")
-    public ResponseEntity<Page<ProductCategoryResponse>> getAllProductCategories() {
-        return ResponseEntity.ok(productCategoryService.getAllProductCategoryOrderByCreateAt());
+    @GetMapping("get-all-product-categories/{page}")
+    public ResponseEntity<?> getAllProductCategories(@PathVariable int page) {
+        if (page < 0) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Page must be >=0");
+        }
+        return ResponseEntity.ok(productCategoryService.getAllProductCategoryOrderByCreateAt(page));
     }
 }

@@ -25,9 +25,10 @@ public class ProductController {
     @Operation(summary = "Get all products by request",
             description = "Enter your value, producTypeId can be 0." +
                     "\n If you enter 0 , then get all products without filtering by type")
-    @GetMapping("get-all-products/{productTypeId}/{productCategoryId}")
+    @GetMapping("get-all-products/{productTypeId}/{productCategoryId}/{page}")
     public ResponseEntity<?> getAllProductsByRequest(@PathVariable Long productTypeId,
-                                                     @PathVariable Long productCategoryId
+                                                     @PathVariable Long productCategoryId,
+                                                     @PathVariable int page
     ) {
         if (productTypeId < 0 && productCategoryId < 1) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
@@ -38,15 +39,19 @@ public class ProductController {
         } else if (productCategoryId < 1) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("Product Category Id must be >=1");
+        } else if (page < 0) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Page must be >=0");
         } else {
             try {
-                List<ProductResponse> productResponse = productService.getAllProduct(productTypeId, productCategoryId);
+                List<ProductResponse> productResponse = productService.getAllProduct(productTypeId, productCategoryId, page);
                 return ResponseEntity.ok(productResponse);
             } catch (EntityNotFoundException ex) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND)
                         .body("Products not found");
             }
         }
+
     }
 
     @Operation(summary = "Get product by id", description = "Enter your value")

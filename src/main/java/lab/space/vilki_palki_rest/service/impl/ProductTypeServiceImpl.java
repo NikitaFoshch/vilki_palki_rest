@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class ProductTypeServiceImpl implements ProductTypeService {
     private final ProductTypeRepository productTypeRepository;
-
+    private final  int DEFAULT_PAGE_SIZE = 10;
 
     @Override
     public ProductType getProductType(Long id) {
@@ -31,7 +31,7 @@ public class ProductTypeServiceImpl implements ProductTypeService {
     }
 
     @Override
-    public Page<ProductTypeResponse> getAllProductType() {
-        return productTypeRepository.findAll(PageRequest.of(1,10)).map(ProductTypeMapper::toDto);
+    public Page<ProductTypeResponse> getAllProductType(int page) {
+        return productTypeRepository.findAll(PageRequest.of(page,DEFAULT_PAGE_SIZE)).map(ProductTypeMapper::toDto);
     }
 }

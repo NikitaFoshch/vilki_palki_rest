@@ -19,6 +19,7 @@ import lab.space.vilki_palki_rest.service.PromotionService;
 public class PromotionServiceImpl implements PromotionService {
     private final PromotionRepository promotionRepository;
     private final PromotionMapper promotionMapper;
+    private final  int DEFAULT_PAGE_SIZE = 10;
     @Override
     public PromotionResponse getPromotionById(Long id) {
         return promotionMapper.toDto(getPromotion(id));
@@ -31,7 +32,7 @@ public class PromotionServiceImpl implements PromotionService {
     }
 
     @Override
-    public Page<PromotionResponse> getAllPromotions() {
-        return promotionRepository.findAll(PageRequest.of(1,10)).map(promotionMapper::toDto);
+    public Page<PromotionResponse> getAllPromotions(int page) {
+        return promotionRepository.findAll(PageRequest.of(page,DEFAULT_PAGE_SIZE)).map(promotionMapper::toDto);
     }
 }

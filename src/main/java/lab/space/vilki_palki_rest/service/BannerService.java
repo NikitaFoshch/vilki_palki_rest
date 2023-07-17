@@ -7,5 +7,5 @@ import org.springframework.data.domain.Page;
 public interface BannerService {
     Banner getBanner(Long id);
     BannerResponse getBannerDto(Long id);
-    Page<BannerResponse> getAllBanners();
+    Page<BannerResponse> getAllBanners(int page);
 }

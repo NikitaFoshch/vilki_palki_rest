@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class ProductCategoryServiceImpl implements ProductCategoryService {
     private final ProductCategoryRepository productCategoryRepository;
+    private final  int DEFAULT_PAGE_SIZE = 10;
 
     @Override
     public ProductCategory getProductCategory(Long id) {
@@ -30,8 +31,8 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     }
 
     @Override
-    public Page<ProductCategoryResponse> getAllProductCategoryOrderByCreateAt() {
-        return productCategoryRepository.findAll(PageRequest.of(0,10))
+    public Page<ProductCategoryResponse> getAllProductCategoryOrderByCreateAt(int page) {
+        return productCategoryRepository.findAll(PageRequest.of(page,DEFAULT_PAGE_SIZE))
                 .map(ProductCategoryMapper::toDto);
     }
 }
