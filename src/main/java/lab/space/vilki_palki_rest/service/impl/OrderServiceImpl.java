@@ -31,8 +31,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public ResponseEntity<?> getOrderDto(Long id) {
-        if (!userService.getCurrentUser().getOrders().isEmpty()
-                && userService.getCurrentUser().getOrders()
+        if (userService.getCurrentUser().getOrders()
                 .stream()
                 .anyMatch(orderResponse -> orderResponse.getId().equals(id))) {
             return ResponseEntity.ok(OrderMapper.toSimplifiedDto(getOrder(id)));
@@ -58,7 +57,7 @@ public class OrderServiceImpl implements OrderService {
         orderRepository.save(
                 new Order()
                         .setOrderCode(request.getOrderCode())
-                        .setBirthday(request.getDate())
+                        .setBirthday(null)
                         .setProducts(request.getProductsList())
                         .setDeliveryTime(Instant.now())
                         .setDeliveryStatus(Order.DeliveryStatus.ACCEPT)
