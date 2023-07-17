@@ -32,7 +32,7 @@ public class OrderController {
         return orderService.getOrderDto(id);
     }
 
-    @Operation(summary = "Get all orders by user id")
+    @Operation(summary = "Get all orders")
     @GetMapping("get-all-orders")
     public ResponseEntity<?> getAllOrders() {
             return ResponseEntity.ok(orderService.getAllOrdersByUser());

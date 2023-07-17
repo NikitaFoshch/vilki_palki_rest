@@ -7,6 +7,7 @@ import lab.space.vilki_palki_rest.model.user.UserUpdateRequest;
 public interface UserService {
     User getUserById(Long id);
     UserResponse getCurrentUser();
+    User getCurrentUserWithoutDto();
 
     User getUserByEmail(String email);
 

@@ -38,7 +38,7 @@ public class User extends MappedEntity implements UserDetails {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "user_id")
     private List<Order> orders = new ArrayList<>();
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true)
     @JoinColumn(name = "user_id")
     private List<Address> addresses = new ArrayList<>();
     @ManyToMany(cascade = CascadeType.ALL)

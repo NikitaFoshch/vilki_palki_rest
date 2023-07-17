@@ -41,7 +41,9 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     public ResponseEntity<?> deleteShoppingCart(Long id) {
-        if (userService.getCurrentUser().getId().equals(getShoppingCart(id).getUser().getId())) {
+        if (userService.getCurrentUserWithoutDto().getShoppingCarts()
+                .stream()
+                .anyMatch(shoppingCart -> shoppingCart.getId().equals(id))) {
             shoppingCartRepository.delete(getShoppingCart(id));
             return ResponseEntity.ok().build();
         } else {

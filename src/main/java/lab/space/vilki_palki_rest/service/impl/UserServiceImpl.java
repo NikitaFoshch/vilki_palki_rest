@@ -17,7 +17,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -42,6 +41,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                         SecurityContextHolder.getContext().getAuthentication().getName()
                 )
         );
+    }
+
+    @Override
+    public User getCurrentUserWithoutDto() {
+        return
+                getUserByEmail(
+                        SecurityContextHolder.getContext().getAuthentication().getName()
+
+                );
     }
 
     @Override
