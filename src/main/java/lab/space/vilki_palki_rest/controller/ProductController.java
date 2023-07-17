@@ -46,7 +46,10 @@ public class ProductController {
 
     @Operation(summary = "Get product by id", description = "Enter your value")
     @GetMapping("get-product/{id}")
-    public ResponseEntity<?> getProduct(@Min(1) @PathVariable Long id) {
+    public ResponseEntity<?> getProduct(@Min(1) @PathVariable Long id, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return ResponseEntity.badRequest().body(ErrorMapper.mapErrors(bindingResult));
+        }
         try {
             ProductResponse productResponse = productService.getProductDto(id);
             return ResponseEntity.ok(productResponse);
