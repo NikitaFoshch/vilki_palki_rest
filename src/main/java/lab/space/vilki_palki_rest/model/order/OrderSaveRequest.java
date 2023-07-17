@@ -29,7 +29,4 @@ public class OrderSaveRequest {
     @Min(value = 1, message = "Must be > 0")
     @Schema(name = "price", example = "1000")
     private BigDecimal price;
-    @NotNull(message = "Must be specified")
-    @Schema(name = "userId", example = "1")
-    private Long userId;
 }

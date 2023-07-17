@@ -3,12 +3,14 @@ package lab.space.vilki_palki_rest.model.address;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Data
 public class AddressUpdateRequest{
+        @Min(value = 1, message = "Must be positive")
         private Long id;
         @NotBlank(message = "Must be specified")
         @Size(max = 100, message = "Must be no more than {max} symbols")
@@ -32,7 +34,4 @@ public class AddressUpdateRequest{
         @Size(max = 500, message = "Must be no more than {max} symbols")
         @Schema(name = "notes", example = "Bober zaberet")
         private String notes;
-        @NotNull(message = "Must be specified")
-        @Schema(name = "userId", example = "1")
-        private Long userId;
 }

@@ -4,14 +4,13 @@ import lab.space.vilki_palki_rest.entity.Address;
 import lab.space.vilki_palki_rest.model.address.AddressResponse;
 import lab.space.vilki_palki_rest.model.address.AddressSaveRequest;
 import lab.space.vilki_palki_rest.model.address.AddressUpdateRequest;
-
-import java.util.List;
+import org.springframework.http.ResponseEntity;
 
 public interface AddressService {
     Address getAddress(Long id);
     AddressResponse getAddressDto(Long id);
-    List<AddressResponse> getAllAddressByUserId(Long id);
+    ResponseEntity<?> getAllAddressByUser();
     void saveAddress(AddressSaveRequest request);
-    void updateAddress(AddressUpdateRequest request);
-    void deleteAddress(Long id);
+    ResponseEntity<?> updateAddress(AddressUpdateRequest request);
+    ResponseEntity<?> deleteAddress(Long id);
 }

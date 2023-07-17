@@ -11,9 +11,6 @@ import java.time.Instant;
 
 @Data
 public class UserUpdateRequest {
-    @NotNull(message = "Must be specified")
-    @Schema(name = "id", example = "1")
-    private Long id;
     @Size(max = 100, message = "Must be no more than {max} symbols")
     @Schema(name = "name", example = "Bobrito")
     private String name;

@@ -30,7 +30,4 @@ public class AddressSaveRequest {
     @Size(max = 500, message = "Must be no more than {max} symbols")
     @Schema(name = "notes", example = "Bober zaberet")
     private String notes;
-    @NotNull(message = "Must be specified")
-    @Schema(name = "userId", example = "1")
-    private Long userId;
 }

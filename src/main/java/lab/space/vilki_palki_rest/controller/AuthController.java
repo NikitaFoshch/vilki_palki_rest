@@ -18,7 +18,7 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("auth")
 @AllArgsConstructor
-@Tag(name = "Login", description = "Operations related to Auth and Login")
+@Tag(name = "Authentication", description = "Operations related to Auth and Login")
 public class AuthController {
     private final AuthService authService;
 

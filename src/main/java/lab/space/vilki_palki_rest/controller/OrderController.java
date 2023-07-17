@@ -23,19 +23,19 @@ public class OrderController {
 
     @Operation(summary = "Get order by id", description = "Enter your value")
     @GetMapping("get-order/{id}")
-    public ResponseEntity<OrderResponse> getOrder(@PathVariable Long id) {
-        return ResponseEntity.ok(orderService.getOrderDto(id));
+    public ResponseEntity<?> getOrder(@PathVariable Long id) {
+        return orderService.getOrderDto(id);
     }
 
     @Operation(summary = "Get all orders by user id", description = "Enter your value")
-    @GetMapping("get-all-orders-by-user-id/{id}")
-    public ResponseEntity<List<OrderResponse>> getAllOrders(@PathVariable Long id) {
-        return ResponseEntity.ok(orderService.getAllOrdersByUserId(id));
+    @GetMapping("get-all-orders")
+    public ResponseEntity<?> getAllOrders() {
+        return orderService.getAllOrdersByUser();
     }
 
     @Operation(summary = "Save order")
     @PostMapping("save-order")
-    public ResponseEntity<?> getAllOrders(@Valid @RequestBody OrderSaveRequest request,
+    public ResponseEntity<?> saveOrder(@Valid @RequestBody OrderSaveRequest request,
                                           BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().body(ErrorMapper.mapErrors(bindingResult));

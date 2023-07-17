@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @RequestMapping("addresses")
@@ -30,10 +29,10 @@ public class AddressController {
         return ResponseEntity.ok(addressService.getAddressDto(id));
     }
 
-    @Operation(summary = "Get all addresses by user id", description = "Enter your value")
-    @GetMapping("get-all-addresses-by-user-id/{id}")
-    public ResponseEntity<List<AddressResponse>> getAllAddresses(@PathVariable Long id) {
-        return ResponseEntity.ok(addressService.getAllAddressByUserId(id));
+    @Operation(summary = "Get all addresses by user id")
+    @GetMapping("get-all-addresses")
+    public ResponseEntity<?> getAllAddresses() {
+        return addressService.getAllAddressByUser();
     }
 
     @Operation(summary = "Save address")
@@ -43,13 +42,8 @@ public class AddressController {
         if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().body(ErrorMapper.mapErrors(bindingResult));
         }
-        try {
-            addressService.saveAddress(request);
-            return ResponseEntity.ok().build();
-        } catch (EntityNotFoundException ex) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("User not found with id " + request.getUserId());
-        }
+        addressService.saveAddress(request);
+        return ResponseEntity.ok().build();
     }
 
     @Operation(summary = "Update address", description = "Enter your value")
@@ -59,19 +53,12 @@ public class AddressController {
         if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().body(ErrorMapper.mapErrors(bindingResult));
         }
-        try {
-            addressService.updateAddress(request);
-            return ResponseEntity.ok().build();
-        } catch (EntityNotFoundException ex) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Address or User not found");
-        }
+            return addressService.updateAddress(request);
     }
 
     @Operation(summary = "Delete address by id")
     @DeleteMapping("delete-address/{id}")
     public ResponseEntity<?> updateAddress(@PathVariable Long id) {
-        addressService.deleteAddress(id);
-        return ResponseEntity.ok().build();
+        return addressService.deleteAddress(id);
     }
 }

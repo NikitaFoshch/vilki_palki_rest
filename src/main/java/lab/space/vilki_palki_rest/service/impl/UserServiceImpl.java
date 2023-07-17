@@ -1,6 +1,5 @@
 package lab.space.vilki_palki_rest.service.impl;
 
-import javax.persistence.EntityNotFoundException;
 import lab.space.vilki_palki_rest.entity.User;
 import lab.space.vilki_palki_rest.mapper.UserMapper;
 import lab.space.vilki_palki_rest.model.user.UserResponse;
@@ -10,13 +9,15 @@ import lab.space.vilki_palki_rest.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -35,8 +36,18 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    public UserResponse getCurrentUser() {
+        return userMapper.toDto(
+                getUserByEmail(
+                        SecurityContextHolder.getContext().getAuthentication().getName()
+                )
+        );
+    }
+
+    @Override
     public User getUserByEmail(String email) {
-        return userRepository.findUserByEmail(email);
+        return userRepository.findUserByEmail(email)
+                .orElseThrow(() -> new EntityNotFoundException("User not found by email " + email));
     }
 
     @Override
@@ -50,9 +61,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public void updateUser(UserUpdateRequest requestUser) {
+    public void updateUser(UserUpdateRequest requestUser, String email) {
         userRepository.save(
-                getUserById(requestUser.getId())
+                getUserById(getUserByEmail(email).getId())
                         .setEmail(requestUser.getEmail())
                         .setName(requestUser.getName())
                         .setBirthday(requestUser.getBirthday())

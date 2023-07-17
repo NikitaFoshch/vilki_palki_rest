@@ -25,10 +25,10 @@ public class ProductController {
     @Operation(summary = "Get all products by request",
             description = "Enter your value, producTypeId can be 0." +
                     "\n If you enter 0 , then get all products without filtering by type")
-    @GetMapping("get-all-products/{pTId}/{pCId}")
-    public ResponseEntity<?> getAllProductsByRequest(@PathVariable Long pTId, @PathVariable Long pCId) {
+    @GetMapping("get-all-products/{productTypeId}/{productCategoryId}")
+    public ResponseEntity<?> getAllProductsByRequest(@PathVariable Long productTypeId, @PathVariable Long productCategoryId) {
         try {
-            List<ProductResponse> productResponse = productService.getAllProduct(pTId, pCId);
+            List<ProductResponse> productResponse = productService.getAllProduct(productTypeId, productCategoryId);
             return ResponseEntity.ok(productResponse);
         } catch (EntityNotFoundException ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)

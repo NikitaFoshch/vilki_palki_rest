@@ -6,6 +6,7 @@ import lab.space.vilki_palki_rest.model.user.UserUpdateRequest;
 
 public interface UserService {
     User getUserById(Long id);
+    UserResponse getCurrentUser();
 
     User getUserByEmail(String email);
 
@@ -13,7 +14,7 @@ public interface UserService {
 
     void saveUser(String email);
 
-    void updateUser(UserUpdateRequest user);
+    void updateUser(UserUpdateRequest requestUser, String email);
 
     String  addUserPass(String email);
 

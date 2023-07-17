@@ -15,10 +15,6 @@ public class ShoppingCartSaveRequest{
         private int count;
         @NotNull(message = "Must be specified")
         @Min(value = 1, message = "Must be > 0")
-        @Schema(name = "userId", example = "777")
-        private Long userId;
-        @NotNull(message = "Must be specified")
-        @Min(value = 1, message = "Must be > 0")
         @Schema(name = "productId", example = "777")
         private Long productId;
 }

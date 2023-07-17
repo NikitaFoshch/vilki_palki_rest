@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
+import java.security.Principal;
 
 @RestController
 @RequestMapping("user")
@@ -22,31 +23,31 @@ import javax.validation.Valid;
 public class UserController {
     private final UserService userService;
 
-    @Operation(summary = "Get user by id", description = "Choose id")
-    @GetMapping("get-user/{id}")
-    public ResponseEntity<?> getUser(@PathVariable Long id) {
+    @Operation(summary = "Get user")
+    @GetMapping("get-user")
+    public ResponseEntity<?> getUser() {
         try {
-            UserResponse userResponse = userService.getUserDto(id);
+            UserResponse userResponse = userService.getCurrentUser();
             return ResponseEntity.ok(userResponse);
         } catch (EntityNotFoundException ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("User not found with id " + id);
+                    .body("User not found");
         }
     }
 
     @Operation(summary = "Update user by request", description = "Enter your value")
     @PutMapping("update-user")
     public ResponseEntity<?> updateUser(@Valid @RequestBody UserUpdateRequest request,
-                                         BindingResult bindingResult) {
+                                        BindingResult bindingResult,Principal principal) {
         if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().body(ErrorMapper.mapErrors(bindingResult));
         }
         try {
-            userService.updateUser(request);
+            userService.updateUser(request,principal.getName());
             return ResponseEntity.ok().build();
         } catch (EntityNotFoundException ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("User not found with id " + request.getId());
+                    .body("User not found with email " + principal.getName());
         }
     }
 }
