@@ -46,7 +46,7 @@ public class AddressController {
         return ResponseEntity.ok().build();
     }
 
-    @Operation(summary = "Update address", description = "Enter your value")
+    @Operation(summary = "Update address by id", description = "Enter your value")
     @PutMapping("update-address")
     public ResponseEntity<?> updateAddress(@Valid @RequestBody AddressUpdateRequest request,
                                            BindingResult bindingResult) {

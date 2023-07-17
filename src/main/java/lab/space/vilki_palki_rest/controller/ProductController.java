@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.persistence.EntityNotFoundException;
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import java.util.List;
 
 @RestController
@@ -26,7 +28,7 @@ public class ProductController {
             description = "Enter your value, producTypeId can be 0." +
                     "\n If you enter 0 , then get all products without filtering by type")
     @GetMapping("get-all-products/{productTypeId}/{productCategoryId}")
-    public ResponseEntity<?> getAllProductsByRequest(@PathVariable Long productTypeId, @PathVariable Long productCategoryId) {
+    public ResponseEntity<?> getAllProductsByRequest(@Valid @PathVariable Long productTypeId, @PathVariable Long productCategoryId) {
         try {
             List<ProductResponse> productResponse = productService.getAllProduct(productTypeId, productCategoryId);
             return ResponseEntity.ok(productResponse);
@@ -38,7 +40,7 @@ public class ProductController {
 
     @Operation(summary = "Get product by id", description = "Enter your value")
     @GetMapping("get-product/{id}")
-    public ResponseEntity<?> getProduct(@PathVariable Long id) {
+    public ResponseEntity<?> getProduct(@Min(1) @PathVariable Long id) {
         try {
             ProductResponse productResponse = productService.getProductDto(id);
             return ResponseEntity.ok(productResponse);
