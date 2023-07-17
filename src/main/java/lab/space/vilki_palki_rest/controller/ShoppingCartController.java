@@ -19,10 +19,14 @@ public class ShoppingCartController {
     private final ShoppingCartService shoppingCartService;
 
     @Operation(summary = "Get all shopping cart")
-    @GetMapping("get-all-shopping-cart")
-    public ResponseEntity<?> getAllShoppingCartByUserId() {
+    @GetMapping("get-all-shopping-cart/{page}")
+    public ResponseEntity<?> getAllShoppingCartByUserId(@PathVariable int page) {
+        if (page < 0) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Page must be >=0");
+        }
         try {
-            return ResponseEntity.ok(shoppingCartService.getAllShoppingCartByUserId());
+            return ResponseEntity.ok(shoppingCartService.getAllShoppingCartByUser(page));
         } catch (
                 EntityNotFoundException ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)

@@ -9,15 +9,14 @@ import lab.space.vilki_palki_rest.service.AddressService;
 import lab.space.vilki_palki_rest.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
-import static java.util.Objects.*;
+import static java.util.Objects.nonNull;
 
 @Service
 @Slf4j
@@ -25,6 +24,8 @@ import static java.util.Objects.*;
 public class AddressServiceImpl implements AddressService {
     private final AddressRepository addressRepository;
     private final UserService userService;
+    private final AddressSpecification specification;
+    private final int DEFAULT_PAGE_SIZE = 10;
 
     @Override
     public Address getAddress(Long id) {
@@ -45,10 +46,11 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public ResponseEntity<?> getAllAddressByUser() {
+    public ResponseEntity<?> getAllAddressByUser(int page) {
         if (nonNull(userService.getCurrentUser().getAddresses())) {
-            return ResponseEntity.ok(addressRepository.findAllByUserIdOrderByCreateAt(userService.getCurrentUser().getId())
-                    .stream().map(AddressMapper::toSimplifiedDto).collect(Collectors.toList()));
+            return ResponseEntity.ok(addressRepository.findAll(specification.getAddressByUser(userService.getCurrentUser().getId()),
+                            PageRequest.of(page, DEFAULT_PAGE_SIZE))
+                    .map(AddressMapper::toSimplifiedDto));
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("Address not found");
