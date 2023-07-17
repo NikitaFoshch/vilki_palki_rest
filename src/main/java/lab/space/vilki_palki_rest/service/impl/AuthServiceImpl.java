@@ -1,6 +1,5 @@
 package lab.space.vilki_palki_rest.service.impl;
 
-import com.auth0.jwt.exceptions.JWTDecodeException;
 import lab.space.vilki_palki_rest.entity.User;
 import lab.space.vilki_palki_rest.model.user.UserAuthRequest;
 import lab.space.vilki_palki_rest.model.user.UserRequest;
@@ -20,6 +19,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
+import javax.persistence.EntityNotFoundException;
 
 import static java.util.Collections.singletonMap;
 
@@ -65,7 +66,9 @@ public class AuthServiceImpl implements AuthService {
     }
 
     public void checkEmail(UserRequest request) {
-        if (userService.getUserByEmail(request.getEmail()) == null) {
+        try {
+            userService.getUserByEmail(request.getEmail());
+        } catch (EntityNotFoundException e) {
             userService.saveUser(request.getEmail());
         }
     }
