@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lab.space.vilki_palki_rest.model.structure_category.StructureCategoryResponse;
 import lab.space.vilki_palki_rest.service.StructureCategoryService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +22,7 @@ public class StructureCategoryController {
 
     @Operation(summary = "Get all structure categories")
     @GetMapping("get-all-structure-categories")
-    public ResponseEntity<List<StructureCategoryResponse>> getAllStructureCategories() {
+    public ResponseEntity<Page<StructureCategoryResponse>> getAllStructureCategories() {
         return ResponseEntity.ok(structureCategoryService.getAllStructureCategories());
     }
 }

@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lab.space.vilki_palki_rest.model.banner.BannerResponse;
 import lab.space.vilki_palki_rest.service.BannerService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +22,7 @@ public class BannerController {
 
     @Operation(summary = "Get all banners")
     @GetMapping("get-all-banners")
-    public ResponseEntity<List<BannerResponse>> getAllBanners() {
+    public ResponseEntity<Page<BannerResponse>> getAllBanners() {
         return ResponseEntity.ok(bannerService.getAllBanners());
     }
 }

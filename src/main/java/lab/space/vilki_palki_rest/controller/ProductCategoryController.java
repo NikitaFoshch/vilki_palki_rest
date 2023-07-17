@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lab.space.vilki_palki_rest.model.product_category.ProductCategoryResponse;
 import lab.space.vilki_palki_rest.service.ProductCategoryService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,7 +41,7 @@ public class ProductCategoryController {
 
     @Operation(summary = "Get all product categories")
     @GetMapping("get-all-product-categories")
-    public ResponseEntity<List<ProductCategoryResponse>> getAllProductCategories() {
+    public ResponseEntity<Page<ProductCategoryResponse>> getAllProductCategories() {
         return ResponseEntity.ok(productCategoryService.getAllProductCategoryOrderByCreateAt());
     }
 }

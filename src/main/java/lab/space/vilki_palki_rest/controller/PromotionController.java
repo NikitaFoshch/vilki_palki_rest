@@ -6,6 +6,7 @@ import lab.space.vilki_palki_rest.model.product.ProductResponse;
 import lab.space.vilki_palki_rest.model.promotion.PromotionResponse;
 import lab.space.vilki_palki_rest.service.PromotionService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +26,7 @@ public class PromotionController {
 
     @Operation(summary = "Get all promotions")
     @GetMapping("get-all-promotions")
-    public ResponseEntity<List<PromotionResponse>> getAllPromotions() {
+    public ResponseEntity<Page<PromotionResponse>> getAllPromotions() {
         return ResponseEntity.ok(promotionService.getAllPromotions());
     }
 
