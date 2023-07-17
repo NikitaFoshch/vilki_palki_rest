@@ -2,7 +2,6 @@ package lab.space.vilki_palki_rest.service.impl;
 
 import lab.space.vilki_palki_rest.entity.Address;
 import lab.space.vilki_palki_rest.mapper.AddressMapper;
-import lab.space.vilki_palki_rest.model.address.AddressResponse;
 import lab.space.vilki_palki_rest.model.address.AddressSaveRequest;
 import lab.space.vilki_palki_rest.model.address.AddressUpdateRequest;
 import lab.space.vilki_palki_rest.repository.AddressRepository;
@@ -31,8 +30,16 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public AddressResponse getAddressDto(Long id) {
-        return AddressMapper.toSimplifiedDto(getAddress(id));
+    public ResponseEntity<?> getAddressDto(Long id) {
+        if (!userService.getCurrentUser().getOrders().isEmpty()
+                && userService.getCurrentUser().getOrders()
+                .stream()
+                .anyMatch(orderResponse -> orderResponse.getId().equals(id))) {
+            return ResponseEntity.ok(AddressMapper.toSimplifiedDto(getAddress(id)));
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Orders not found");
+        }
     }
 
     @Override

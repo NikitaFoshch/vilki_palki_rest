@@ -25,11 +25,11 @@ public class AddressController {
 
     @Operation(summary = "Get address by id", description = "Enter your value")
     @GetMapping("get-address/{id}")
-    public ResponseEntity<AddressResponse> getAddress(@PathVariable Long id) {
-        return ResponseEntity.ok(addressService.getAddressDto(id));
+    public ResponseEntity<?> getAddress(@PathVariable Long id) {
+        return addressService.getAddressDto(id);
     }
 
-    @Operation(summary = "Get all addresses by user id")
+    @Operation(summary = "Get all addresses")
     @GetMapping("get-all-addresses")
     public ResponseEntity<?> getAllAddresses() {
         return addressService.getAllAddressByUser();

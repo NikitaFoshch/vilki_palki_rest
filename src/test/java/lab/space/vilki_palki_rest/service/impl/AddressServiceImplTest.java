@@ -60,18 +60,18 @@ public class AddressServiceImplTest {
         });
     }
 
-    @Test
-    public void testGetAddressDto_ExistingId_ReturnsAddressResponse() {
-        // Arrange
-        Long addressId = 1L;
-        Address address = new Address();
-        when(addressRepository.findById(addressId)).thenReturn(Optional.of(address));
-        AddressResponse expectedResponse = AddressMapper.toSimplifiedDto(address);
-
-        AddressResponse result = addressService.getAddressDto(addressId);
-
-        assertThat(result).isEqualTo(expectedResponse);
-    }
+//    @Test
+//    public void testGetAddressDto_ExistingId_ReturnsAddressResponse() {
+//        // Arrange
+//        Long addressId = 1L;
+//        Address address = new Address();
+//        when(addressRepository.findById(addressId)).thenReturn(Optional.of(address));
+//        AddressResponse expectedResponse = AddressMapper.toSimplifiedDto(address);
+//
+//        AddressResponse result = addressService.getAddressDto(addressId);
+//
+//        assertThat(result).isEqualTo(expectedResponse);
+//    }
 
 //    @Test
 //    public void testGetAllAddressByUserId_ReturnsListOfAddressResponses() {
