@@ -27,7 +27,7 @@ public class Address extends MappedEntity {
     private Integer floor;
     @Column(length = 500)
     private String notes;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.DETACH)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 

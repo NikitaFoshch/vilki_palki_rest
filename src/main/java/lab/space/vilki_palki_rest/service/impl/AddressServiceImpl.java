@@ -72,23 +72,20 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public ResponseEntity<?> updateAddress(AddressUpdateRequest request) {
-        if (!userService.getCurrentUser().getAddresses().isEmpty()
-                && userService.getCurrentUser().getAddresses()
+        if (userService.getCurrentUser().getAddresses()
                 .stream()
                 .anyMatch(addressResponse -> addressResponse.getId().equals(request.getId()))) {
-            return ResponseEntity.ok(
-                    addressRepository.save(
-                            getAddress(request.getId())
-                                    .setApartment(request.getApartment())
-                                    .setDoorCode(request.getDoorCode())
-                                    .setNotes(request.getNotes())
-                                    .setUser(userService.getUserById(userService.getCurrentUser().getId()))
-                                    .setFrontDoor(request.getFrontDoor())
-                                    .setNumberHouse(request.getNumberHouse())
-                                    .setStreet(request.getStreet())
-                                    .setFloor(request.getFloor())
-                    )
-            );
+            addressRepository.save(
+                    getAddress(request.getId())
+                            .setApartment(request.getApartment())
+                            .setDoorCode(request.getDoorCode())
+                            .setNotes(request.getNotes())
+                            .setUser(userService.getUserById(userService.getCurrentUser().getId()))
+                            .setFrontDoor(request.getFrontDoor())
+                            .setNumberHouse(request.getNumberHouse())
+                            .setStreet(request.getStreet())
+                            .setFloor(request.getFloor()));
+            return ResponseEntity.ok().build();
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("Address not found");
@@ -99,7 +96,8 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public ResponseEntity<?> deleteAddress(Long id) {
-        if (userService.getCurrentUser().getId().equals(getAddress(id).getUser().getId())) {
+        if (userService.getCurrentUser().getAddresses().stream()
+                .anyMatch(addressResponse -> addressResponse.getId().equals(id))) {
             addressRepository.delete(getAddress(id));
             return ResponseEntity.ok().build();
         } else {
