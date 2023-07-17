@@ -8,11 +8,9 @@ import lab.space.vilki_palki_rest.repository.BannerRepository;
 import lab.space.vilki_palki_rest.service.BannerService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -32,8 +30,7 @@ public class BannerServiceImpl implements BannerService {
     }
 
     @Override
-    public List<BannerResponse> getAllBanners() {
-        return bannerRepository.findAll(Sort.by(Sort.Direction.DESC,"createAt"))
-                .stream().map(BannerMapper::toDto).collect(Collectors.toList());
+    public Page<BannerResponse> getAllBanners() {
+        return bannerRepository.findAll(PageRequest.of(1,10)).map(BannerMapper::toDto);
     }
 }

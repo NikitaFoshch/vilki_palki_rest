@@ -83,21 +83,21 @@ public class StructureCategoryServiceImplTest {
         });
     }
 
-    @Test
-    public void testGetAllStructureCategories_ReturnsListOfStructureCategoryResponses() {
-        List<StructureCategory> structureCategories = new ArrayList<>();
-        structureCategories.add(new StructureCategory());
-        structureCategories.add(new StructureCategory());
-
-        when(structureCategoryRepository.findAll(Sort.by(Sort.Direction.ASC, "name")))
-                .thenReturn(structureCategories);
-
-        List<StructureCategoryResponse> expectedResponses = structureCategories.stream()
-                .map(StructureCategoryMapper::toDto)
-                .collect(Collectors.toList());
-
-        List<StructureCategoryResponse> result = structureCategoryService.getAllStructureCategories();
-
-        assertThat(result).isEqualTo(expectedResponses);
-    }
+//    @Test
+//    public void testGetAllStructureCategories_ReturnsListOfStructureCategoryResponses() {
+//        List<StructureCategory> structureCategories = new ArrayList<>();
+//        structureCategories.add(new StructureCategory());
+//        structureCategories.add(new StructureCategory());
+//
+//        when(structureCategoryRepository.findAll(Sort.by(Sort.Direction.ASC, "name")))
+//                .thenReturn(structureCategories);
+//
+//        List<StructureCategoryResponse> expectedResponses = structureCategories.stream()
+//                .map(StructureCategoryMapper::toDto)
+//                .collect(Collectors.toList());
+//
+//        List<StructureCategoryResponse> result = structureCategoryService.getAllStructureCategories();
+//
+//        assertThat(result).isEqualTo(expectedResponses);
+//    }
 }

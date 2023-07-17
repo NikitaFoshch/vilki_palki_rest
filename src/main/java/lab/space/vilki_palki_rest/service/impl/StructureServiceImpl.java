@@ -8,10 +8,13 @@ import lab.space.vilki_palki_rest.repository.StructureRepository;
 import lab.space.vilki_palki_rest.service.StructureService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -33,8 +36,7 @@ public class StructureServiceImpl implements StructureService {
     }
 
     @Override
-    public List<StructureResponse> getAllStructuresDto() {
-        return structureRepository.findAll(Sort.by(Sort.Direction.ASC,"name"))
-                .stream().map(structureMapper::toDto).collect(Collectors.toList());
+    public Page<StructureResponse> getAllStructuresDto() {
+        return structureRepository.findAll(PageRequest.of(1,10)).map(structureMapper::toDto);
     }
 }

@@ -8,11 +8,9 @@ import lab.space.vilki_palki_rest.repository.ProductTypeRepository;
 import lab.space.vilki_palki_rest.service.ProductTypeService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -33,8 +31,7 @@ public class ProductTypeServiceImpl implements ProductTypeService {
     }
 
     @Override
-    public List<ProductTypeResponse> getAllProductType() {
-        return productTypeRepository.findAll(Sort.by(Sort.Direction.ASC, "name"))
-                .stream().map(ProductTypeMapper::toDto).collect(Collectors.toList());
+    public Page<ProductTypeResponse> getAllProductType() {
+        return productTypeRepository.findAll(PageRequest.of(1,10)).map(ProductTypeMapper::toDto);
     }
 }

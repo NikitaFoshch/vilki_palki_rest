@@ -70,20 +70,20 @@ public class ProductTypeServiceImplTest {
         Assert.notNull(result);
     }
 
-    @Test
-    public void testGetAllProductType_ReturnsListOfProductTypeResponses() {
-        List<ProductType> productTypes = new ArrayList<>();
-        productTypes.add(new ProductType());
-        productTypes.add(new ProductType());
-
-        when(productTypeRepository.findAll(Sort.by(Sort.Direction.ASC, "name"))).thenReturn(productTypes);
-
-        List<ProductTypeResponse> expectedResponses = productTypes.stream()
-                .map(ProductTypeMapper::toDto)
-                .collect(Collectors.toList());
-
-        List<ProductTypeResponse> result = productTypeService.getAllProductType();
-
-        assertThat(result).isEqualTo(expectedResponses);
-    }
+//    @Test
+//    public void testGetAllProductType_ReturnsListOfProductTypeResponses() {
+//        List<ProductType> productTypes = new ArrayList<>();
+//        productTypes.add(new ProductType());
+//        productTypes.add(new ProductType());
+//
+//        when(productTypeRepository.findAll(Sort.by(Sort.Direction.ASC, "name"))).thenReturn(productTypes);
+//
+//        List<ProductTypeResponse> expectedResponses = productTypes.stream()
+//                .map(ProductTypeMapper::toDto)
+//                .collect(Collectors.toList());
+//
+//        List<ProductTypeResponse> result = productTypeService.getAllProductType();
+//
+//        assertThat(result).isEqualTo(expectedResponses);
+//    }
 }

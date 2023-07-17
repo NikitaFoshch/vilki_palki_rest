@@ -9,6 +9,7 @@ import lab.space.vilki_palki_rest.service.ProductService;
 import lab.space.vilki_palki_rest.service.ProductTypeService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +29,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductResponse> getAllProduct(Long pTId, Long pCId) {
         return productRepository
-                .findAll(Sort.by(Sort.Direction.ASC, "name"))
+                .findAll(PageRequest.of(1,10))
                 .stream()
                 .filter(product -> pTId == 0
                         ||

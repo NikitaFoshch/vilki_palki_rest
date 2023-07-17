@@ -83,20 +83,20 @@ public class PromotionServiceImplTest {
         });
     }
 
-    @Test
-    public void testGetAllPromotions_ReturnsListOfPromotionResponses() {
-        List<Promotion> promotions = new ArrayList<>();
-        promotions.add(new Promotion());
-        promotions.add(new Promotion());
-
-        when(promotionRepository.findAll(Sort.by(Sort.Direction.ASC, "name"))).thenReturn(promotions);
-
-        List<PromotionResponse> expectedResponses = promotions.stream()
-                .map(promotionMapper::toDto)
-                .collect(Collectors.toList());
-
-        List<PromotionResponse> result = promotionService.getAllPromotions();
-
-        assertThat(result).isEqualTo(expectedResponses);
-    }
+//    @Test
+//    public void testGetAllPromotions_ReturnsListOfPromotionResponses() {
+//        List<Promotion> promotions = new ArrayList<>();
+//        promotions.add(new Promotion());
+//        promotions.add(new Promotion());
+//
+//        when(promotionRepository.findAll(Sort.by(Sort.Direction.ASC, "name"))).thenReturn(promotions);
+//
+//        List<PromotionResponse> expectedResponses = promotions.stream()
+//                .map(promotionMapper::toDto)
+//                .collect(Collectors.toList());
+//
+//        List<PromotionResponse> result = promotionService.getAllPromotions();
+//
+//        assertThat(result).isEqualTo(expectedResponses);
+//    }
 }

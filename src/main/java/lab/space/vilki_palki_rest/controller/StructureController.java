@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lab.space.vilki_palki_rest.model.structure.StructureResponse;
 import lab.space.vilki_palki_rest.service.StructureService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +22,7 @@ public class StructureController {
 
     @Operation(summary = "Get all structure")
     @GetMapping("get-all-structures")
-    public ResponseEntity<List<StructureResponse>> getAllStructure() {
+    public ResponseEntity<Page<StructureResponse>> getAllStructure() {
         return ResponseEntity.ok(structureService.getAllStructuresDto());
     }
 }

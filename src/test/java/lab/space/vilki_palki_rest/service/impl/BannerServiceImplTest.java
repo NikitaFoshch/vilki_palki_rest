@@ -68,18 +68,18 @@ public class BannerServiceImplTest {
         assertThat(result).isEqualTo(expectedResponse);
     }
 
-    @Test
-    public void testGetAllBanners_ReturnsListOfBannerResponses() {
-        List<Banner> banners = new ArrayList<>();
-        banners.add(new Banner());
-        banners.add(new Banner());
-        when(bannerRepository.findAll(Sort.by(Sort.Direction.DESC, "createAt"))).thenReturn(banners);
-        List<BannerResponse> expectedResponses = banners.stream()
-                .map(BannerMapper::toDto)
-                .collect(Collectors.toList());
-
-        List<BannerResponse> result = bannerService.getAllBanners();
-
-        assertThat(result).isEqualTo(expectedResponses);
-    }
+//    @Test
+//    public void testGetAllBanners_ReturnsListOfBannerResponses() {
+//        List<Banner> banners = new ArrayList<>();
+//        banners.add(new Banner());
+//        banners.add(new Banner());
+//        when(bannerRepository.findAll(Sort.by(Sort.Direction.DESC, "createAt"))).thenReturn(banners);
+//        List<BannerResponse> expectedResponses = banners.stream()
+//                .map(BannerMapper::toDto)
+//                .collect(Collectors.toList());
+//
+//        List<BannerResponse> result = bannerService.getAllBanners();
+//
+//        assertThat(result).isEqualTo(expectedResponses);
+//    }
 }

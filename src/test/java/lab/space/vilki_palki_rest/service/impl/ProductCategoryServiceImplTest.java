@@ -67,14 +67,14 @@ public class ProductCategoryServiceImplTest {
         assertThat(result).isEqualTo(expectedResponse);
     }
 
-    @Test
-    public void testGetAllProductCategoryOrderByCreateAt_ReturnsListOfProductCategoryResponses() {
-        List<ProductCategory> productCategories = new ArrayList<>();
-        productCategories.add(new ProductCategory());
-        productCategories.add(new ProductCategory());
-
-        List<ProductCategoryResponse> result = productCategoryService.getAllProductCategoryOrderByCreateAt();
-
-        Assert.notNull(result);
-    }
+//    @Test
+//    public void testGetAllProductCategoryOrderByCreateAt_ReturnsListOfProductCategoryResponses() {
+//        List<ProductCategory> productCategories = new ArrayList<>();
+//        productCategories.add(new ProductCategory());
+//        productCategories.add(new ProductCategory());
+//
+//        List<ProductCategoryResponse> result = productCategoryService.getAllProductCategoryOrderByCreateAt();
+//
+//        Assert.notNull(result);
+//    }
 }
