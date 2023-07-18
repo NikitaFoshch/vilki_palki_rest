@@ -73,14 +73,14 @@ public class AuthServiceImpl implements AuthService {
     public ResponseEntity<?> refreshToken(HttpServletRequest request, HttpServletResponse response) {
         final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
         final String refreshToken;
-        final String adminLogin;
+        final String token;
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("UNAUTHORIZED");
         }
         refreshToken = authHeader.substring(7);
-        adminLogin = jwtService.extractUsername(refreshToken);
-        if (adminLogin != null) {
+        token = jwtService.extractUsername(refreshToken);
+        if (token != null) {
             UserDetails user = userService.getCurrentUserWithoutDto();
             if (jwtService.isTokenValid(refreshToken, user)) {
                 return ResponseEntity.ok(jwtService.generateToken(user));
