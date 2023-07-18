@@ -25,8 +25,7 @@ public class ShoppingCartController {
     @ApiResponses({
             @ApiResponse(responseCode = "200",description = "OK"),
             @ApiResponse(responseCode = "400",description = "Bad Request"),
-            @ApiResponse(responseCode = "401",description = "Unauthorized"),
-            @ApiResponse(responseCode = "404",description = "Not found")
+            @ApiResponse(responseCode = "401",description = "Unauthorized")
     })
     @GetMapping("get-shopping-cart/{page}")
     public ResponseEntity<?> getAllShoppingCartByUserId(@PathVariable Integer page) {
