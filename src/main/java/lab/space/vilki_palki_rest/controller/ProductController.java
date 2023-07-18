@@ -1,6 +1,8 @@
 package lab.space.vilki_palki_rest.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lab.space.vilki_palki_rest.model.product.ProductResponse;
 import lab.space.vilki_palki_rest.service.ProductService;
@@ -26,6 +28,12 @@ public class ProductController {
             description = "Enter your value, producTypeId can be 0." +
                     "\n If you enter 0 , then get all products without filtering by type. " +
                     "\nThis controller returns a total of 10 objects according to pagination (first page = 0)")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200",description = "OK"),
+            @ApiResponse(responseCode = "400",description = "Bad Request"),
+            @ApiResponse(responseCode = "401",description = "Unauthorized"),
+            @ApiResponse(responseCode = "404",description = "Not found")
+    })
     @GetMapping("get-all-products/{productTypeId}/{productCategoryId}/{page}")
     public ResponseEntity<?> getAllProductsByRequest(@PathVariable Long productTypeId,
                                                      @PathVariable Long productCategoryId,
@@ -56,6 +64,12 @@ public class ProductController {
     }
 
     @Operation(summary = "Get product by id", description = "Enter your value")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200",description = "OK"),
+            @ApiResponse(responseCode = "400",description = "Bad Request"),
+            @ApiResponse(responseCode = "401",description = "Unauthorized"),
+            @ApiResponse(responseCode = "404",description = "Not found")
+    })
     @GetMapping("get-product/{id}")
     public ResponseEntity<?> getProduct(@PathVariable Long id) {
         if (id < 1) {

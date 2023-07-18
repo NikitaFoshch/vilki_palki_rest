@@ -1,6 +1,8 @@
 package lab.space.vilki_palki_rest.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lab.space.vilki_palki_rest.service.StructureService;
 import lombok.AllArgsConstructor;
@@ -20,6 +22,11 @@ public class StructureController {
 
     @Operation(summary = "Get all structure", description = "This controller returns a total of 10 objects " +
             "according to pagination (first page = 0)")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200",description = "OK"),
+            @ApiResponse(responseCode = "400",description = "Bad Request"),
+            @ApiResponse(responseCode = "401",description = "Unauthorized")
+    })
     @GetMapping("get-all-structures/{page}")
     public ResponseEntity<?> getAllStructure(@PathVariable Integer page) {
         if (page < 0) {

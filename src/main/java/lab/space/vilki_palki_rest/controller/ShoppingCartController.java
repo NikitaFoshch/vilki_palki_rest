@@ -1,6 +1,8 @@
 package lab.space.vilki_palki_rest.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lab.space.vilki_palki_rest.model.shopping_cart.ShoppingCartSaveRequest;
 import lab.space.vilki_palki_rest.service.ShoppingCartService;
@@ -20,6 +22,12 @@ public class ShoppingCartController {
 
     @Operation(summary = "Get shopping cart", description = "This controller returns a total of 10 objects " +
             "according to pagination (first page = 0)")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200",description = "OK"),
+            @ApiResponse(responseCode = "400",description = "Bad Request"),
+            @ApiResponse(responseCode = "401",description = "Unauthorized"),
+            @ApiResponse(responseCode = "404",description = "Not found")
+    })
     @GetMapping("get-shopping-cart/{page}")
     public ResponseEntity<?> getAllShoppingCartByUserId(@PathVariable Integer page) {
         if (page < 0) {
@@ -36,12 +44,24 @@ public class ShoppingCartController {
     }
 
     @Operation(summary = "Add to shopping cart")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200",description = "OK"),
+            @ApiResponse(responseCode = "400",description = "Bad Request"),
+            @ApiResponse(responseCode = "401",description = "Unauthorized"),
+            @ApiResponse(responseCode = "404",description = "Not found")
+    })
     @PostMapping("add-to-shopping-cart")
     public ResponseEntity<?> saveShoppingCart(@RequestBody ShoppingCartSaveRequest request) {
         return shoppingCartService.saveShoppingCart(request);
     }
 
     @Operation(summary = "Delete product from shopping cart by user by id", description = "Enter your value")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200",description = "OK"),
+            @ApiResponse(responseCode = "400",description = "Bad Request"),
+            @ApiResponse(responseCode = "401",description = "Unauthorized"),
+            @ApiResponse(responseCode = "404",description = "Not found")
+    })
     @DeleteMapping("delete-product-from-shopping-cart/{id}")
     public ResponseEntity<?> deleteShoppingCart(@PathVariable Long id) {
         if (id < 1) {

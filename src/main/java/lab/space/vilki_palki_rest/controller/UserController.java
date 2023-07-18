@@ -1,6 +1,8 @@
 package lab.space.vilki_palki_rest.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lab.space.vilki_palki_rest.model.user.UserResponse;
 import lab.space.vilki_palki_rest.model.user.UserUpdateRequest;
@@ -24,6 +26,12 @@ public class UserController {
     private final UserService userService;
 
     @Operation(summary = "Get user")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200",description = "OK"),
+            @ApiResponse(responseCode = "400",description = "Bad Request"),
+            @ApiResponse(responseCode = "401",description = "Unauthorized"),
+            @ApiResponse(responseCode = "404",description = "Not found")
+    })
     @GetMapping("get-user")
     public ResponseEntity<?> getUser() {
         try {
@@ -36,6 +44,12 @@ public class UserController {
     }
 
     @Operation(summary = "Update user by request", description = "Enter your value")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200",description = "OK"),
+            @ApiResponse(responseCode = "400",description = "Bad Request"),
+            @ApiResponse(responseCode = "401",description = "Unauthorized"),
+            @ApiResponse(responseCode = "404",description = "Not found")
+    })
     @PutMapping("update-user")
     public ResponseEntity<?> updateUser(@Valid @RequestBody UserUpdateRequest request,
                                         BindingResult bindingResult,Principal principal) {

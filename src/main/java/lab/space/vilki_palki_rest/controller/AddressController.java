@@ -1,6 +1,8 @@
 package lab.space.vilki_palki_rest.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lab.space.vilki_palki_rest.model.address.AddressSaveRequest;
 import lab.space.vilki_palki_rest.model.address.AddressUpdateRequest;
@@ -22,6 +24,12 @@ public class AddressController {
     private final AddressService addressService;
 
     @Operation(summary = "Get address by id", description = "Enter your value")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200",description = "OK"),
+            @ApiResponse(responseCode = "400",description = "Bad Request"),
+            @ApiResponse(responseCode = "401",description = "Unauthorized"),
+            @ApiResponse(responseCode = "404",description = "Not found")
+    })
     @GetMapping("get-address/{id}")
     public ResponseEntity<?> getAddress(@PathVariable Long id) {
         if (id < 1) {
@@ -33,6 +41,11 @@ public class AddressController {
 
     @Operation(summary = "Get all addresses", description = "This controller returns a total of 10 objects " +
             "according to pagination (first page = 0)")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200",description = "OK"),
+            @ApiResponse(responseCode = "400",description = "Bad Request"),
+            @ApiResponse(responseCode = "401",description = "Unauthorized")
+    })
     @GetMapping("get-all-addresses/{page}")
     public ResponseEntity<?> getAllAddresses(@PathVariable Integer page) {
         if (page < 0) {
@@ -43,6 +56,11 @@ public class AddressController {
     }
 
     @Operation(summary = "Save address")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200",description = "OK"),
+            @ApiResponse(responseCode = "400",description = "Bad Request"),
+            @ApiResponse(responseCode = "401",description = "Unauthorized")
+    })
     @PostMapping("save-address")
     public ResponseEntity<?> saveAddress(@Valid @RequestBody AddressSaveRequest request,
                                          BindingResult bindingResult) {
@@ -54,6 +72,12 @@ public class AddressController {
     }
 
     @Operation(summary = "Update address by id", description = "Enter your value")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200",description = "OK"),
+            @ApiResponse(responseCode = "400",description = "Bad Request"),
+            @ApiResponse(responseCode = "401",description = "Unauthorized"),
+            @ApiResponse(responseCode = "404",description = "Not found")
+    })
     @PutMapping("update-address")
     public ResponseEntity<?> updateAddress(@Valid @RequestBody AddressUpdateRequest request,
                                            BindingResult bindingResult) {
@@ -64,6 +88,12 @@ public class AddressController {
     }
 
     @Operation(summary = "Delete address by id")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200",description = "OK"),
+            @ApiResponse(responseCode = "400",description = "Bad Request"),
+            @ApiResponse(responseCode = "401",description = "Unauthorized"),
+            @ApiResponse(responseCode = "404",description = "Not found")
+    })
     @DeleteMapping("delete-address/{id}")
     public ResponseEntity<?> deleteAddress(@PathVariable Long id) {
         if (id < 1) {
