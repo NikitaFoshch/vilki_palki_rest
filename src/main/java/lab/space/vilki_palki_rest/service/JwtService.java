@@ -9,6 +9,7 @@ public interface JwtService {
     String extractUsername(String token);
 
     Map<String, String> generateTokens(UserDetails userDetails);
+    Map<String, String> generateToken(UserDetails userDetails);
 
     boolean isTokenValid(String token, UserDetails userDetails);
 

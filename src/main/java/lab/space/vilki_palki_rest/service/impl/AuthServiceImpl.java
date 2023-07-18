@@ -8,6 +8,7 @@ import lab.space.vilki_palki_rest.service.JwtService;
 import lab.space.vilki_palki_rest.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
@@ -18,9 +19,12 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import static java.util.Collections.singletonMap;
 
@@ -63,6 +67,27 @@ public class AuthServiceImpl implements AuthService {
                     .status(HttpStatus.UNAUTHORIZED)
                     .body(singletonMap("error", e));
         }
+    }
+
+    @Override
+    public ResponseEntity<?> refreshToken(HttpServletRequest request, HttpServletResponse response) {
+        final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
+        final String refreshToken;
+        final String adminLogin;
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("UNAUTHORIZED");
+        }
+        refreshToken = authHeader.substring(7);
+        adminLogin = jwtService.extractUsername(refreshToken);
+        if (adminLogin != null) {
+            UserDetails user = userService.getCurrentUserWithoutDto();
+            if (jwtService.isTokenValid(refreshToken, user)) {
+                return ResponseEntity.ok(jwtService.generateToken(user));
+            }
+        }
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("UNAUTHORIZED");
     }
 
     public void checkEmail(UserRequest request) {

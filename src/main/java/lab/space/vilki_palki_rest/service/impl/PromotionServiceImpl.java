@@ -32,7 +32,7 @@ public class PromotionServiceImpl implements PromotionService {
     }
 
     @Override
-    public Page<PromotionResponse> getAllPromotions(int page) {
+    public Page<PromotionResponse> getAllPromotions(Integer page) {
         return promotionRepository.findAll(PageRequest.of(page,DEFAULT_PAGE_SIZE)).map(promotionMapper::toDto);
     }
 }

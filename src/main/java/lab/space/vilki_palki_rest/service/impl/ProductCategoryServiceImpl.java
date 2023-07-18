@@ -31,7 +31,7 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     }
 
     @Override
-    public Page<ProductCategoryResponse> getAllProductCategoryOrderByCreateAt(int page) {
+    public Page<ProductCategoryResponse> getAllProductCategoryOrderByCreateAt(Integer page) {
         return productCategoryRepository.findAll(PageRequest.of(page,DEFAULT_PAGE_SIZE))
                 .map(ProductCategoryMapper::toDto);
     }

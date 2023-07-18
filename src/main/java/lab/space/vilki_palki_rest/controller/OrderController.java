@@ -33,7 +33,7 @@ public class OrderController {
     @Operation(summary = "Get all orders", description = "This controller returns a total of 10 objects " +
             "according to pagination (first page = 0)")
     @GetMapping("get-all-orders/{page}")
-    public ResponseEntity<?> getAllOrders(@PathVariable int page) {
+    public ResponseEntity<?> getAllOrders(@PathVariable Integer page) {
         if (page < 0) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("Page must be >=0");

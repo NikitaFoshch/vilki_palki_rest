@@ -9,8 +9,6 @@ import lombok.Data;
 @Builder
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class ShoppingCartResponse{
-        private Long id;
-        private Long userId;
         private ProductResponse product;
         private int count;
 }

@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 @RestController
@@ -39,5 +41,11 @@ public class AuthController {
             return ResponseEntity.badRequest().body(ErrorMapper.mapErrors(bindingResult));
         }
         return authService.authentication(request);
+    }
+
+    @PostMapping("refreshToken")
+    public ResponseEntity<?> refreshToken(HttpServletRequest request,
+                                          HttpServletResponse response) {
+        return authService.refreshToken(request,response);
     }
 }

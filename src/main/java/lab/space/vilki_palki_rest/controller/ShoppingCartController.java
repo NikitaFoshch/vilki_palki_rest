@@ -18,10 +18,10 @@ import javax.persistence.EntityNotFoundException;
 public class ShoppingCartController {
     private final ShoppingCartService shoppingCartService;
 
-    @Operation(summary = "Get all shopping cart", description = "This controller returns a total of 10 objects " +
+    @Operation(summary = "Get shopping cart", description = "This controller returns a total of 10 objects " +
             "according to pagination (first page = 0)")
-    @GetMapping("get-all-shopping-cart/{page}")
-    public ResponseEntity<?> getAllShoppingCartByUserId(@PathVariable int page) {
+    @GetMapping("get-shopping-cart/{page}")
+    public ResponseEntity<?> getAllShoppingCartByUserId(@PathVariable Integer page) {
         if (page < 0) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("Page must be >=0");
@@ -35,14 +35,14 @@ public class ShoppingCartController {
         }
     }
 
-    @Operation(summary = "Save shopping cart")
-    @PostMapping("save-shopping-cart")
+    @Operation(summary = "Add to shopping cart")
+    @PostMapping("add-to-shopping-cart")
     public ResponseEntity<?> saveShoppingCart(@RequestBody ShoppingCartSaveRequest request) {
         return shoppingCartService.saveShoppingCart(request);
     }
 
-    @Operation(summary = "Delete shopping cart by user by id", description = "Enter your value")
-    @DeleteMapping("delete-shopping-cart/{id}")
+    @Operation(summary = "Delete product from shopping cart by user by id", description = "Enter your value")
+    @DeleteMapping("delete-product-from-shopping-cart/{id}")
     public ResponseEntity<?> deleteShoppingCart(@PathVariable Long id) {
         if (id < 1) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)

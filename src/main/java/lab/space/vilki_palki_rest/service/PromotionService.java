@@ -8,6 +8,6 @@ public interface PromotionService {
 
     PromotionResponse getPromotionById(Long id);
     Promotion getPromotion(Long id);
-    Page<PromotionResponse> getAllPromotions(int page);
+    Page<PromotionResponse> getAllPromotions(Integer page);
 
 }

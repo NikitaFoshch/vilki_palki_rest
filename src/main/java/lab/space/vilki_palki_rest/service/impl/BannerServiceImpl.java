@@ -32,7 +32,7 @@ public class BannerServiceImpl implements BannerService {
     }
 
     @Override
-    public Page<BannerResponse> getAllBanners(int page) {
+    public Page<BannerResponse> getAllBanners(Integer page) {
         return bannerRepository.findAll(PageRequest.of(page, DEFAULT_PAGE_SIZE)).map(BannerMapper::toDto);
     }
 }

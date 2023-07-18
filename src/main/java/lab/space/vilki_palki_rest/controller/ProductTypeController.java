@@ -21,7 +21,7 @@ public class ProductTypeController {
     @Operation(summary = "Get all product types", description = "This controller returns a total of 10 objects " +
             "according to pagination (first page = 0)")
     @GetMapping("get-all-product-types/{page}")
-    public ResponseEntity<?> getAllProductType(@PathVariable int page) {
+    public ResponseEntity<?> getAllProductType(@PathVariable Integer page) {
         if (page < 0) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("Page must be >=0");

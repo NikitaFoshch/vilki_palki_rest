@@ -13,9 +13,7 @@ public class ShoppingCartMapper {
 
     public ShoppingCartResponse toDto(ShoppingCart shoppingCart) {
         return ShoppingCartResponse.builder()
-                .id(shoppingCart.getId())
                 .count(shoppingCart.getCount())
-                .userId(shoppingCart.getUser().getId())
                 .product(productService.getProductSimpleDto(shoppingCart.getProduct().getId()))
                 .build();
 

@@ -23,7 +23,7 @@ public class PromotionController {
     @Operation(summary = "Get all promotions", description = "This controller returns a total of 10 objects " +
             "according to pagination (first page = 0)")
     @GetMapping("get-all-promotions/{page}")
-    public ResponseEntity<?> getAllPromotions(@PathVariable int page) {
+    public ResponseEntity<?> getAllPromotions(@PathVariable Integer page) {
         if (page < 0) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("Page must be >=0");

@@ -17,6 +17,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -36,7 +38,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
-    public Page<ShoppingCartResponse> getAllShoppingCartByUser(int page) {
+    public Page<ShoppingCartResponse> getAllShoppingCartByUser(Integer page) {
         return shoppingCartRepository.findAll(specification.getShoppingCartsByUser(userService.getCurrentUser().getId()),
                         PageRequest.of(page, DEFAULT_PAGE_SIZE))
                 .map(shoppingCartMapper::toDto);
@@ -46,12 +48,16 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     public ResponseEntity<?> deleteShoppingCart(Long id) {
         if (userService.getCurrentUserWithoutDto().getShoppingCarts()
                 .stream()
-                .anyMatch(shoppingCart -> shoppingCart.getId().equals(id))) {
-            shoppingCartRepository.delete(getShoppingCart(id));
+                .anyMatch(shoppingCart -> shoppingCart.getProduct().getId().equals(id))) {
+            List<ShoppingCart> shoppingCarts = userService.getCurrentUserWithoutDto().getShoppingCarts();
+
+            shoppingCarts.removeIf(shoppingCart -> shoppingCart.getProduct().getId().equals(id));
+
+            shoppingCartRepository.deleteAll(shoppingCarts);
             return ResponseEntity.ok().build();
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Shopping Cart not found with id " + id);
+                    .body("Product in Shopping Cart not found with id " + id);
         }
 
     }
@@ -59,12 +65,24 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Override
     public ResponseEntity<?> saveShoppingCart(ShoppingCartSaveRequest request) {
         try {
-            ShoppingCart shoppingCart = new ShoppingCart();
-            shoppingCart.setCount(request.getCount());
-            shoppingCart.setUser(userService.getUserById(userService.getCurrentUser().getId()));
-            shoppingCart.setProduct(productService.getProduct(request.getProductId()));
-
-            shoppingCartRepository.save(shoppingCart);
+            ShoppingCart cart = new ShoppingCart();
+            if (userService.getCurrentUserWithoutDto().getShoppingCarts()
+                    .stream()
+                    .noneMatch(shoppingCart -> shoppingCart.getProduct().getId().equals(request.getProductId()))) {
+                cart.setCount(request.getCount());
+                cart.setUser(userService.getUserById(userService.getCurrentUser().getId()));
+                cart.setProduct(productService.getProduct(request.getProductId()));
+            }else {
+                Optional<ShoppingCart> shoppingCartOptional = userService.getCurrentUserWithoutDto().getShoppingCarts()
+                        .stream()
+                        .filter(shoppingCart -> shoppingCart.getProduct().getId().equals(request.getProductId()))
+                        .findFirst();
+                if (shoppingCartOptional.isPresent()) {
+                    cart = getShoppingCart(shoppingCartOptional.get().getId());
+                    cart.setCount(cart.getCount()+ request.getCount());
+                }
+            }
+            shoppingCartRepository.save(cart);
             return ResponseEntity.ok().build();
         } catch (EntityNotFoundException ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)

@@ -2,14 +2,12 @@ package lab.space.vilki_palki_rest.service.impl;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import lab.space.vilki_palki_rest.service.JwtService;
 import lab.space.vilki_palki_rest.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +15,6 @@ import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -51,6 +48,19 @@ public class JwtServiceImpl implements JwtService {
         Map<String, String> tokens = new HashMap<>();
         tokens.put("access_token", accessToken);
         tokens.put("refresh_token", refreshToken);
+        userService.addUserPass(userDetails.getUsername());
+        return tokens;
+    }
+
+    @Override
+    public Map<String, String> generateToken(UserDetails userDetails) {
+        String accessToken = JWT.create()
+                .withSubject(userDetails.getUsername())
+                .withIssuedAt(new Date())
+                .withExpiresAt(new Date(System.currentTimeMillis() + 604800017L * ACCESS_JWT_EXPIRED_TIME))
+                .sign(getSignInAlgorithm());
+        Map<String, String> tokens = new HashMap<>();
+        tokens.put("access_token", accessToken);
         userService.addUserPass(userDetails.getUsername());
         return tokens;
     }

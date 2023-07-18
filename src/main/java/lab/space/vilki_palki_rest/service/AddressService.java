@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 public interface AddressService {
     Address getAddress(Long id);
     ResponseEntity<?> getAddressDto(Long id);
-    ResponseEntity<?> getAllAddressByUser(int page);
+    ResponseEntity<?> getAllAddressByUser(Integer page);
     void saveAddress(AddressSaveRequest request);
     ResponseEntity<?> updateAddress(AddressUpdateRequest request);
     ResponseEntity<?> deleteAddress(Long id);

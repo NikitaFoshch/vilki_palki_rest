@@ -46,7 +46,7 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public ResponseEntity<?> getAllAddressByUser(int page) {
+    public ResponseEntity<?> getAllAddressByUser(Integer page) {
         if (nonNull(userService.getCurrentUser().getAddresses())) {
             return ResponseEntity.ok(addressRepository.findAll(specification.getAddressByUser(userService.getCurrentUser().getId()),
                             PageRequest.of(page, DEFAULT_PAGE_SIZE))

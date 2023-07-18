@@ -31,7 +31,7 @@ public class StructureCategoryServiceImpl implements StructureCategoryService {
     }
 
     @Override
-    public Page<StructureCategoryResponse> getAllStructureCategories(int page) {
+    public Page<StructureCategoryResponse> getAllStructureCategories(Integer page) {
         return structureCategoryRepository.findAll(PageRequest.of(page,DEFAULT_PAGE_SIZE)).map(StructureCategoryMapper::toDto);
     }
 }

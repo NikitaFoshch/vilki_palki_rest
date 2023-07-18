@@ -27,7 +27,7 @@ public class ProductServiceImpl implements ProductService {
     private final int DEFAULT_PAGE_SIZE = 10;
 
     @Override
-    public List<ProductResponse> getAllProduct(Long pTId, Long pCId, int page) {
+    public List<ProductResponse> getAllProduct(Long pTId, Long pCId, Integer page) {
         return productRepository
                 .findAll(PageRequest.of(page, DEFAULT_PAGE_SIZE))
                 .stream()

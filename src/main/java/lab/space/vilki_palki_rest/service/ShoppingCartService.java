@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 
 public interface ShoppingCartService {
     ShoppingCart getShoppingCart(Long id);
-    Page<ShoppingCartResponse> getAllShoppingCartByUser(int page);
+    Page<ShoppingCartResponse> getAllShoppingCartByUser(Integer page);
     ResponseEntity<?> deleteShoppingCart(Long id);
     ResponseEntity<?> saveShoppingCart(ShoppingCartSaveRequest shoppingCartSaveRequest);
 }

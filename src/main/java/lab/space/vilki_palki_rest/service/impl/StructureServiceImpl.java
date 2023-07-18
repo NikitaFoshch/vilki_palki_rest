@@ -33,7 +33,7 @@ public class StructureServiceImpl implements StructureService {
     }
 
     @Override
-    public Page<StructureResponse> getAllStructuresDto(int page) {
+    public Page<StructureResponse> getAllStructuresDto(Integer page) {
         return structureRepository.findAll(PageRequest.of(page, DEFAULT_PAGE_SIZE)).map(structureMapper::toDto);
     }
 }

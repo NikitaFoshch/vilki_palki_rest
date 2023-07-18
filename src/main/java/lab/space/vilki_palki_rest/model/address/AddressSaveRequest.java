@@ -3,9 +3,8 @@ package lab.space.vilki_palki_rest.model.address;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
+
 @Data
 public class AddressSaveRequest {
     @NotBlank(message = "Must be specified")
@@ -25,6 +24,8 @@ public class AddressSaveRequest {
     @Size(max = 20, message = "Must be no more than {max} symbols")
     @Schema(name = "doorCode", example = "1197")
     private String doorCode;
+    @Max(value = 100, message = "Must be no more than {value}")
+    @Min(value = -10, message = "Must be no less than {value}")
     @Schema(name = "floor", example = "17")
     private Integer floor;
     @Size(max = 500, message = "Must be no more than {max} symbols")

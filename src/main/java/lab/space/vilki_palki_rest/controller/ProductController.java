@@ -29,7 +29,7 @@ public class ProductController {
     @GetMapping("get-all-products/{productTypeId}/{productCategoryId}/{page}")
     public ResponseEntity<?> getAllProductsByRequest(@PathVariable Long productTypeId,
                                                      @PathVariable Long productCategoryId,
-                                                     @PathVariable int page
+                                                     @PathVariable Integer page
     ) {
         if (productTypeId < 0 && productCategoryId < 1) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)

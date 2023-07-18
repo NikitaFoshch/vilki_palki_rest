@@ -7,5 +7,5 @@ import org.springframework.data.domain.Page;
 public interface ProductTypeService {
     ProductType getProductType(Long id);
     ProductTypeResponse getProductTypeDto(Long id);
-    Page<ProductTypeResponse> getAllProductType(int page);
+    Page<ProductTypeResponse> getAllProductType(Integer page);
 }

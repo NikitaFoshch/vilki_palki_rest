@@ -9,6 +9,6 @@ import org.springframework.http.ResponseEntity;
 public interface OrderService {
     Order getOrder(Long id);
     ResponseEntity<?> getOrderDto(Long id);
-    Page<OrderResponse> getAllOrdersByUser(int page);
+    Page<OrderResponse> getAllOrdersByUser(Integer page);
     void saveOrder(OrderSaveRequest request);
 }

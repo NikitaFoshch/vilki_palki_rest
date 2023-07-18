@@ -31,7 +31,7 @@ public class ProductTypeServiceImpl implements ProductTypeService {
     }
 
     @Override
-    public Page<ProductTypeResponse> getAllProductType(int page) {
+    public Page<ProductTypeResponse> getAllProductType(Integer page) {
         return productTypeRepository.findAll(PageRequest.of(page,DEFAULT_PAGE_SIZE)).map(ProductTypeMapper::toDto);
     }
 }

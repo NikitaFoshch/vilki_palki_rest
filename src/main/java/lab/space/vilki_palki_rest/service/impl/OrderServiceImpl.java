@@ -47,7 +47,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Page<OrderResponse> getAllOrdersByUser(int page) {
+    public Page<OrderResponse> getAllOrdersByUser(Integer page) {
             return orderRepository.findAll(specification.getOrdersByUser(userService.getCurrentUser().getId()),
                             PageRequest.of(page, DEFAULT_PAGE_SIZE))
                     .map(OrderMapper::toSimplifiedDto);
