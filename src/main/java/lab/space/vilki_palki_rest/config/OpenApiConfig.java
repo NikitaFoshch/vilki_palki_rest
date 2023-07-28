@@ -6,7 +6,7 @@ import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.servers.Server;
-import org.springdoc.core.GroupedOpenApi;
+import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -32,7 +32,7 @@ public class OpenApiConfig {
                                 )
                 )
                 .addSecurityItem(new SecurityRequirement().addList("bearer-jwt"))
-                .addServersItem(new Server().url("https://slj.avada-media-dev1.od.ua/Vilki_Palki_Api"));
+                .addServersItem(new Server().url("http://localhost:8081/Vilki_Palki_Api"));
     }
 
     @Bean

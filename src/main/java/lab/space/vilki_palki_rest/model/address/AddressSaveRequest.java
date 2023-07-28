@@ -3,7 +3,7 @@ package lab.space.vilki_palki_rest.model.address;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.*;
+import jakarta.validation.constraints.*;
 
 @Data
 public class AddressSaveRequest {

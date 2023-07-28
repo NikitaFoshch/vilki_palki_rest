@@ -1,9 +1,9 @@
 package lab.space.vilki_palki_rest.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lab.space.vilki_palki_rest.entity.common.MappedEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

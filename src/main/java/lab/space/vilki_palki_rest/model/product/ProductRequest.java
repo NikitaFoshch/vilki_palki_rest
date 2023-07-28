@@ -3,7 +3,7 @@ package lab.space.vilki_palki_rest.model.product;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.Min;
+import jakarta.validation.constraints.Min;
 
 @Data
 public class ProductRequest {

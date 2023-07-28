@@ -1,6 +1,6 @@
 package lab.space.vilki_palki_rest.entity;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
